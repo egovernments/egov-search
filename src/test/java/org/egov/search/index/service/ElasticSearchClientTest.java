@@ -1,8 +1,8 @@
 package org.egov.search.index.service;
 
 import com.jayway.restassured.RestAssured;
-import org.egov.config.ApplicationConfig;
 import org.egov.search.AbstractNodeIntegrationTest;
+import org.egov.search.config.SearchConfig;
 import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,16 +25,16 @@ public class ElasticSearchClientTest extends AbstractNodeIntegrationTest {
     private ElasticSearchClient indexClient;
 
     @Mock
-    private ApplicationConfig applicationConfig;
+    private SearchConfig searchConfig;
 
     @Before
     public void before() {
         MockitoAnnotations.initMocks(this);
 
         indexName = this.getClass().getSimpleName().toLowerCase();
-        when(applicationConfig.searchShardsFor(indexName)).thenReturn(1);
-        when(applicationConfig.searchReplicasFor(indexName)).thenReturn(0);
-        indexClient = new ElasticSearchClient(client(), applicationConfig);
+        when(searchConfig.searchShardsFor(indexName)).thenReturn(1);
+        when(searchConfig.searchReplicasFor(indexName)).thenReturn(0);
+        indexClient = new ElasticSearchClient(client(), searchConfig);
 
         RestAssured.baseURI = "http://localhost/";
         RestAssured.port = PORT;

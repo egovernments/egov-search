@@ -6,7 +6,9 @@
          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
        default-lazy-init="true">
 
-    <context:component-scan base-package="org.egov.search"/>
+    <import resource="applicationContext-properties.xml" />
+    <import resource="applicationContext-search-queues.xml" />
 
+    <context:component-scan base-package="org.egov.search"/>
 </beans>
 

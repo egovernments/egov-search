@@ -1,6 +1,6 @@
 package org.egov.search;
 
-import org.egov.config.ApplicationConfig;
+import org.egov.search.config.SearchConfig;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.ImmutableSettings;
@@ -16,12 +16,12 @@ public class SearchBeans {
 
     @Bean
     @Autowired
-    public Client transportClient(ApplicationConfig applicationConfig) {
+    public Client transportClient(SearchConfig searchConfig) {
         ImmutableSettings.Builder settingsBuilder = ImmutableSettings.builder();
-        settingsBuilder.put("cluster.name", applicationConfig.searchClusterName());
+        settingsBuilder.put("cluster.name", searchConfig.searchClusterName());
 
         TransportClient client = new TransportClient(settingsBuilder);
-        asList(applicationConfig.searchHosts()).stream().forEach(host -> addTransportClient(client, host, applicationConfig.searchPort()));
+        asList(searchConfig.searchHosts()).stream().forEach(host -> addTransportClient(client, host, searchConfig.searchPort()));
 
         return client;
     }

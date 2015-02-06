@@ -9,20 +9,15 @@
             <list>
                 <value>classpath*:config/egov-search.properties</value>
                 <value>classpath*:config/egov-search-override.properties</value>
-                <value>classpath*:config/egov-search-${user.name}.properties</value>
             </list>
         </property>
 
         <property name="ignoreResourceNotFound" value="true"/>
     </bean>
 
-    <bean id="globalPropertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="properties" ref="egovSearchProperties"/>
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
-    </bean>
-
-    <bean class="org.egov.config.SearchConfig">
-        <constructor-arg ref="egovSearchProperties" />
     </bean>
 
 </beans>

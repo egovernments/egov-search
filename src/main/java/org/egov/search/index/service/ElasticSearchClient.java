@@ -1,6 +1,6 @@
 package org.egov.search.index.service;
 
-import org.egov.config.ApplicationConfig;
+import org.egov.search.config.SearchConfig;
 import org.egov.search.util.Classpath;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
@@ -23,12 +23,12 @@ import org.springframework.stereotype.Component;
 class ElasticSearchClient {
 
     private Client client;
-    private ApplicationConfig applicationConfig;
+    private SearchConfig searchConfig;
 
     @Autowired
-    public ElasticSearchClient(@Qualifier("transportClient") Client client, ApplicationConfig applicationConfig) {
+    public ElasticSearchClient(@Qualifier("transportClient") Client client, SearchConfig searchConfig) {
         this.client = client;
-        this.applicationConfig = applicationConfig;
+        this.searchConfig = searchConfig;
     }
 
     public boolean index(String documentId, String document, String indexName, String type) {
@@ -62,8 +62,8 @@ class ElasticSearchClient {
         ImmutableSettings.Builder settingsBuilder = ImmutableSettings.settingsBuilder();
         Settings settings = settingsBuilder
                 .put("index.mapper.dynamic", true)
-                .put("index.number_of_shards", applicationConfig.searchShardsFor(indexName))
-                .put("index.number_of_replicas", applicationConfig.searchReplicasFor(indexName))
+                .put("index.number_of_shards", searchConfig.searchShardsFor(indexName))
+                .put("index.number_of_replicas", searchConfig.searchReplicasFor(indexName))
                 .build();
 
         String dynamicTemplates = Classpath.readAsString("config/search/dynamic-templates.json");
