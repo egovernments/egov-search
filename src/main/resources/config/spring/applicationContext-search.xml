@@ -7,7 +7,6 @@
        default-lazy-init="true">
 
     <import resource="applicationContext-properties.xml" />
-    <import resource="applicationContext-search-queues.xml" />
 
     <context:component-scan base-package="org.egov.search"/>
 </beans>
