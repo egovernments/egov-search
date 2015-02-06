@@ -10,4 +10,12 @@
         </mirror>
     </mirrors>
 
+    <servers>
+        <server>
+            <id>arti.egovernments.org</id>
+            <username>deployment</username>
+            <password>egovnexus7918</password>
+        </server>
+    </servers>
+
 </settings>
