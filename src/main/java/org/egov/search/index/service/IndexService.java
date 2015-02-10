@@ -24,7 +24,7 @@ public class IndexService {
 
     public void index(Index index, ResourceType resourceType, Document document) {
         jmsTemplate.send(indexQueue, session -> {
-            TextMessage textMessage = session.createTextMessage(document.getResource());
+            TextMessage textMessage = session.createTextMessage(document.toJson());
             textMessage.setStringProperty("index", index.indexName());
             textMessage.setStringProperty("type", resourceType.indexType());
             return textMessage;
