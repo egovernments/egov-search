@@ -16,7 +16,7 @@ def map_to_json(data)
 			"fund" => data[:fund],
 			"function" => data[:function],
 			"budgethead" => data[:budgethead],
-			"estimate_amount" => data[:estimate_amount],			
+			"estimate_amount" => data[:estimate_amount].to_i,			
 			"asset_category" => data[:asset_category],
 			"asset_name" => data[:asset_name]
 		},

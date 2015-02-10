@@ -1,0 +1,22 @@
+{
+	"mappings": {
+		"_default_": {
+			"dynamic_templates": [{
+				"clauses": {
+					"path_match": "clauses.*",
+					"mapping": {
+						"index": "not_analyzed"
+					}
+				}
+			}, {
+				"simple_dates": {
+					"path_match": "*_date",
+					"mapping": {
+						"type": "date",
+						"format": "dd-MMM-YY"
+					}
+				}
+			}]
+		}
+	}
+}

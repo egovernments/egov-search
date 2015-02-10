@@ -16,13 +16,13 @@ def map_to_json(data)
 		},
 		"common"=> {
 			"citizen"=> {
-				"mobile_number"=> data[:mobile_no],
+				"mobile_number"=> data[:mobile_no].to_i,
 				"first_name"=> data[:first_name],
 				"middle_name"=> data[:middle_name],
 				"last_name"=> data[:last_name],
 				"email"=> data[:email],
 				"address"=> data[:address],
-				"pincode"=> data[:pin_code]
+				"pincode"=> data[:pin_code].to_i
 			},
 			"boundary"=> {
 				"zone"=> data[:zone],

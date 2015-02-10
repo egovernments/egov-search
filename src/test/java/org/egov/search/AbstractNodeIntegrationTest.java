@@ -1,5 +1,6 @@
 package org.egov.search;
 
+import com.jayway.restassured.RestAssured;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthRequest;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthRequestBuilder;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
@@ -40,6 +41,9 @@ public abstract class AbstractNodeIntegrationTest {
                 .put("cluster.name", "test-cluster-" + NetworkUtils.getLocalAddress());
 
         node = NodeBuilder.nodeBuilder().local(true).settings(settingsBuilder).node();
+
+        RestAssured.baseURI = "http://localhost/";
+        RestAssured.port = PORT;
     }
 
     @AfterClass

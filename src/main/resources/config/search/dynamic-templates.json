@@ -4,8 +4,16 @@
       "clauses": {
         "path_match": "clauses.*",
         "mapping": {
-          "type": "string",
           "index": "not_analyzed"
+        }
+      }
+    },
+    {
+      "simple_dates": {
+        "path_match": "*_date",
+        "mapping": {
+          "type": "date",
+          "format": "dd-MMM-YY"
         }
       }
     }

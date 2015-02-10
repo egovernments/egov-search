@@ -10,7 +10,7 @@ def map_to_json(data)
 			"estimate_number" => data[:estimate_number],
 			"package_number" => data[:package_number],
 			"tender_file_number" => data[:tender_file_number],
-			"package_amount"=> data[:package_amount],
+			"package_amount"=> data[:package_amount].to_i,
 			"status" => data[:status],
 			"manual_work_package_number" => data[:manual_work_package_number]
 		},
