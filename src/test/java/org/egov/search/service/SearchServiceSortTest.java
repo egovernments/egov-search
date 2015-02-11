@@ -1,6 +1,7 @@
 package org.egov.search.service;
 
 import org.egov.search.domain.Filters;
+import org.egov.search.domain.Page;
 import org.egov.search.domain.SearchResult;
 import org.egov.search.domain.Sort;
 import org.elasticsearch.search.sort.SortOrder;
@@ -16,7 +17,7 @@ public class SearchServiceSortTest extends SearchServiceTest {
     public void shouldSortByComplaintNumber() {
         Sort sort = Sort.by().field("searchable.complaint_number", SortOrder.ASC);
 
-        SearchResult searchResult = searchService.search(asList(indexName), asList(), Filters.NULL, sort);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(), Filters.NULL, sort, Page.NULL);
 
         assertThat(searchResult.documentCount(), Is.is(11));
         assertThat(searchResult.getDocuments().get(0).getCorrelationId(), Is.is("203465"));
@@ -30,7 +31,7 @@ public class SearchServiceSortTest extends SearchServiceTest {
                 .field("searchable.title", SortOrder.ASC)
                 .field("searchable.complaint_number", SortOrder.DESC);
 
-        SearchResult searchResult = searchService.search(asList(indexName), asList(), Filters.NULL, sort);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(), Filters.NULL, sort, Page.NULL);
 
         assertThat(searchResult.documentCount(), Is.is(11));
         assertThat(searchResult.getDocuments().get(8).getCorrelationId(), Is.is("203463"));

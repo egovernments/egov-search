@@ -1,6 +1,7 @@
 package org.egov.search.service;
 
 import org.egov.search.config.SearchConfig;
+import org.egov.search.domain.Page;
 import org.egov.search.domain.Sort;
 import org.egov.search.util.Classpath;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
@@ -8,15 +9,12 @@ import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -36,7 +34,6 @@ class ElasticSearchClient {
     }
 
     public boolean index(String documentId, String document, String indexName, String type) {
-
         if (!indexExists(indexName)) {
             createIndex(indexName);
         }
@@ -51,21 +48,13 @@ class ElasticSearchClient {
         return indexResponse.isCreated();
     }
 
-    public String search(String indexName, String type, String queryString) {
-        QueryStringQueryBuilder queryStringQueryBuilder = QueryBuilders.queryString(queryString);
-        SearchRequest searchRequest = new SearchRequestBuilder(client).setIndices(indexName).setTypes(type).setQuery(queryStringQueryBuilder).request();
-        SearchResponse searchResponse = client.search(searchRequest).actionGet();
-        return searchResponse.toString();
-    }
-
-    public String search(List<String> indices, List<String> types, QueryBuilder queryBuilder, Sort sort) {
-
+    public String search(List<String> indices, List<String> types, QueryBuilder queryBuilder, Sort sort, Page page) {
         SearchRequestBuilder requestBuilder = new SearchRequestBuilder(client)
                 .setIndices(toArray(indices))
                 .setTypes(toArray(types))
                 .setQuery(queryBuilder)
-                .setFrom(0)
-                .setSize(999999999);
+                .setFrom(page.offset())
+                .setSize(page.size());
 
         sort.stream().forEach(sf -> requestBuilder.addSort(sf.field(), sf.order()));
         SearchResponse searchResponse = client.search(requestBuilder.request()).actionGet();

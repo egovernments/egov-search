@@ -3,19 +3,22 @@ package org.egov.search.service;
 import com.jayway.restassured.RestAssured;
 import org.egov.search.AbstractNodeIntegrationTest;
 import org.egov.search.config.SearchConfig;
+import org.egov.search.domain.Page;
+import org.egov.search.domain.Sort;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import static com.jayway.jsonassert.JsonAssert.with;
 import static com.jayway.restassured.RestAssured.get;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -53,7 +56,7 @@ public class ElasticSearchClientTest extends AbstractNodeIntegrationTest {
 
         refreshIndices(indexName);
 
-        String searchResult = indexClient.search(indexName, type, "developer");
+        String searchResult = indexClient.search(asList(indexName), asList(type), QueryBuilders.queryString("developer"), Sort.NULL, Page.NULL);
 
         with(searchResult).assertEquals("$.hits.total", 1);
         with(searchResult).assertEquals("$.hits.hits[0]._id", "document_id");
@@ -81,8 +84,8 @@ public class ElasticSearchClientTest extends AbstractNodeIntegrationTest {
         refreshIndices(indexName);
 
         String mapping = get(indexName + "/_mapping/users").asString();
-        with(mapping).assertEquals("$..properties.clauses..department.index", Arrays.asList("not_analyzed"));
-        with(mapping).assertEquals("$..properties.clauses..status.index", Arrays.asList("not_analyzed"));
+        with(mapping).assertEquals("$..properties.clauses..department.index", asList("not_analyzed"));
+        with(mapping).assertEquals("$..properties.clauses..status.index", asList("not_analyzed"));
         with(mapping).assertNotDefined("$..searchable..name.index");
         with(mapping).assertNotDefined("$..searchable..role.index");
     }

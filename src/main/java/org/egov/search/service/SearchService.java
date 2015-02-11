@@ -1,6 +1,7 @@
 package org.egov.search.service;
 
 import org.egov.search.domain.Filters;
+import org.egov.search.domain.Page;
 import org.egov.search.domain.SearchResult;
 import org.egov.search.domain.Sort;
 import org.elasticsearch.index.query.BoolFilterBuilder;
@@ -26,7 +27,7 @@ public class SearchService {
         this.elasticSearchClient = elasticSearchClient;
     }
 
-    public SearchResult search(List<String> indices, List<String> types, Filters filters, Sort sort) {
+    public SearchResult search(List<String> indices, List<String> types, Filters filters, Sort sort, Page page) {
         BoolFilterBuilder boolFilterBuilder = constructBoolFilter(filters);
 
         QueryBuilder rootQueryBuilder = null;
@@ -37,7 +38,7 @@ public class SearchService {
         }
 
 
-        String response = elasticSearchClient.search(indices, types, rootQueryBuilder, sort);
+        String response = elasticSearchClient.search(indices, types, rootQueryBuilder, sort, page);
         return SearchResult.from(response);
     }
 
