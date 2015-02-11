@@ -1,6 +1,7 @@
 package org.egov.search.service;
 
 import org.egov.search.config.SearchConfig;
+import org.egov.search.domain.Sort;
 import org.egov.search.util.Classpath;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
@@ -57,9 +58,17 @@ class ElasticSearchClient {
         return searchResponse.toString();
     }
 
-    public String search(List<String> indices, List<String> types, QueryBuilder queryBuilder) {
-        SearchRequest searchRequest = new SearchRequestBuilder(client).setIndices(toArray(indices)).setTypes(toArray(types)).setQuery(queryBuilder).request();
-        SearchResponse searchResponse = client.search(searchRequest).actionGet();
+    public String search(List<String> indices, List<String> types, QueryBuilder queryBuilder, Sort sort) {
+
+        SearchRequestBuilder requestBuilder = new SearchRequestBuilder(client)
+                .setIndices(toArray(indices))
+                .setTypes(toArray(types))
+                .setQuery(queryBuilder)
+                .setFrom(0)
+                .setSize(999999999);
+
+        sort.stream().forEach(sf -> requestBuilder.addSort(sf.field(), sf.order()));
+        SearchResponse searchResponse = client.search(requestBuilder.request()).actionGet();
         return searchResponse.toString();
     }
 
