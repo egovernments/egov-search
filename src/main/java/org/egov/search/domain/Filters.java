@@ -27,6 +27,14 @@ public class Filters {
     }
 
     public static Filters withAndFilters(Map<String, String> andFilters) {
-        return new Filters(andFilters, new HashMap<>(), new HashMap<>());
+        return withAndPlusOrFilters(andFilters, new HashMap<>());
+    }
+
+    public static Filters withAndPlusOrFilters(Map<String, String> andFilters, Map<String, String> orFilters) {
+        return new Filters(andFilters, orFilters, new HashMap<>());
+    }
+
+    public static Filters withAndPlusNotFilters(Map<String, String> andFilters, Map<String, String> notFilters) {
+        return new Filters(andFilters, new HashMap<>(), notFilters);
     }
 }

@@ -16,6 +16,9 @@ import java.util.Map;
 import static com.jayway.jsonpath.JsonPath.read;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
+import static org.egov.search.domain.Filters.withAndFilters;
+import static org.egov.search.domain.Filters.withAndPlusNotFilters;
+import static org.egov.search.domain.Filters.withAndPlusOrFilters;
 import static org.egov.search.util.Classpath.readAsString;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.core.Is.is;
@@ -56,8 +59,7 @@ public class SearchServiceTest extends AbstractNodeIntegrationTest {
         SearchResult searchResult = searchService.search(asList(indexName), asList(), Filters.withAndFilters(andFilters));
 
         assertThat(searchResult.documentCount(), is(3));
-        List<String> complaintNumbers = read(searchResult.rawResponse(), "$..complaint_number");
-        assertThat(complaintNumbers, contains("299DIF", "751HFP", "696IDN"));
+        assertThat(complaintNumbers(searchResult), contains("299DIF", "751HFP", "696IDN"));
     }
 
     @Test
@@ -69,8 +71,7 @@ public class SearchServiceTest extends AbstractNodeIntegrationTest {
         SearchResult searchResult = searchService.search(asList(indexName), asList(), Filters.withAndFilters(andFilters));
 
         assertThat(searchResult.documentCount(), is(2));
-        List<String> complaintNumbers = read(searchResult.rawResponse(), "$..complaint_number");
-        assertThat(complaintNumbers, contains("751HFP", "696IDN"));
+        assertThat(complaintNumbers(searchResult), contains("751HFP", "696IDN"));
     }
 
     @Test
@@ -81,8 +82,43 @@ public class SearchServiceTest extends AbstractNodeIntegrationTest {
 
         SearchResult searchResult = searchService.search(asList(indexName), asList(), Filters.withAndFilters(andFilters));
         assertThat(searchResult.documentCount(), is(2));
-        List<String> complaintNumbers = read(searchResult.rawResponse(), "$..complaint_number");
-        assertThat(complaintNumbers, contains("810FBE", "892JBP"));
+        assertThat(complaintNumbers(searchResult), contains("810FBE", "892JBP"));
+    }
+
+    @Test
+    public void shouldSearchWithAndPlusOrFilters() {
+        Map<String, String> andFilters = new HashMap<>();
+        andFilters.put("clauses.status", "REGISTERED");
+
+        Map<String, String> orFilters = new HashMap<>();
+        orFilters.put("searchable.title", "mosquito OR garbage");
+
+        SearchResult searchResult = searchService.search(asList(indexName), asList(), withAndPlusOrFilters(andFilters, orFilters));
+        assertThat(searchResult.documentCount(), is(3));
+        assertThat(complaintNumbers(searchResult), contains("810FBE","820LGN", "751HFP"));
+    }
+
+    @Test
+    public void shouldSearchWithOrFiltersOnSameField() {
+        Map<String, String> andFilters = new HashMap<>();
+        andFilters.put("clauses.status", "FORWARDED OR COMPLETED");
+
+        SearchResult searchResult = searchService.search(asList(indexName), asList(), withAndFilters(andFilters));
+        assertThat(searchResult.documentCount(), is(2));
+        assertThat(complaintNumbers(searchResult), contains("299DIF","873GBH"));
+    }
+
+    @Test
+    public void shouldSearchWithAndPlusNotInFilter() {
+        Map<String, String> andFilters = new HashMap<>();
+        andFilters.put("clauses.status", "REGISTERED");
+
+        Map<String, String> notInFilters = new HashMap<>();
+        notInFilters.put("clauses.mode", "CITIZEN");
+
+        SearchResult searchResult = searchService.search(asList(indexName), asList(), withAndPlusNotFilters(andFilters, notInFilters));
+        assertThat(searchResult.documentCount(), is(2));
+        assertThat(complaintNumbers(searchResult), contains("751HFP","696IDN"));
     }
 
     private void indexPGRdata() {
@@ -90,5 +126,9 @@ public class SearchServiceTest extends AbstractNodeIntegrationTest {
             elasticSearchClient.index(id + "", readAsString(format("data/pgr/pgr%s.json", id)), indexName, indexType);
         }
         refreshIndices(indexName);
+    }
+    
+    private List<String> complaintNumbers(SearchResult searchResult) {
+        return read(searchResult.rawResponse(), "$..complaint_number");
     }
 }

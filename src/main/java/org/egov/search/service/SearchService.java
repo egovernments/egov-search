@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.QueryBuilders.queryString;
@@ -27,20 +28,33 @@ public class SearchService {
 
     public SearchResult search(List<String> indices, List<String> types, Filters filters) {
 
-        List<QueryStringQueryBuilder> queryStringFilters = filters.getAndFilters().entrySet()
-                .stream()
-                .map(entry -> queryString(entry.getValue()).field(entry.getKey()))
-                .collect(toList());
+        List<QueryStringQueryBuilder> mustQueryStringFilters = queryStringFilters(filters.getAndFilters());
+        List<QueryStringQueryBuilder> shouldQueryStringFilters = queryStringFilters(filters.getOrFilters());
+        List<QueryStringQueryBuilder> notQueryStringFilters = queryStringFilters(filters.getNotInFilters());
 
 
         BoolFilterBuilder boolFilterBuilder = FilterBuilders.boolFilter();
-        queryStringFilters
+
+        mustQueryStringFilters
                 .stream()
                 .forEach(filter -> boolFilterBuilder.must(FilterBuilders.queryFilter(filter)));
+        shouldQueryStringFilters
+                .stream()
+                .forEach(filter -> boolFilterBuilder.should(FilterBuilders.queryFilter(filter)));
+        notQueryStringFilters
+                .stream()
+                .forEach(filter -> boolFilterBuilder.mustNot(FilterBuilders.queryFilter(filter)));
 
         FilteredQueryBuilder filteredQueryBuilder = QueryBuilders.filteredQuery(null, boolFilterBuilder);
 
         String response = elasticSearchClient.search(indices, types, filteredQueryBuilder);
         return SearchResult.from(response);
+    }
+
+    private List<QueryStringQueryBuilder> queryStringFilters(Map<String, String> filters) {
+        return filters.entrySet()
+                    .stream()
+                    .map(entry -> queryString(entry.getValue()).field(entry.getKey()))
+                    .collect(toList());
     }
 }
