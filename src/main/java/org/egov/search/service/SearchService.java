@@ -1,5 +1,6 @@
 package org.egov.search.service;
 
+import org.egov.search.domain.Filters;
 import org.egov.search.domain.SearchResult;
 import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 import static java.util.stream.Collectors.toList;
 import static org.elasticsearch.index.query.QueryBuilders.queryString;
@@ -25,8 +25,9 @@ public class SearchService {
         this.elasticSearchClient = elasticSearchClient;
     }
 
-    public SearchResult search(List<String> indices, List<String> types, Map<String, String> filterMap) {
-        List<QueryStringQueryBuilder> queryStringFilters = filterMap.entrySet()
+    public SearchResult search(List<String> indices, List<String> types, Filters filters) {
+
+        List<QueryStringQueryBuilder> queryStringFilters = filters.getAndFilters().entrySet()
                 .stream()
                 .map(entry -> queryString(entry.getValue()).field(entry.getKey()))
                 .collect(toList());
