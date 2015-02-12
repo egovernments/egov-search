@@ -13,7 +13,7 @@ import static java.util.Arrays.asList;
 import static org.egov.search.domain.Filters.withAndFilters;
 import static org.egov.search.domain.Filters.withAndPlusNotFilters;
 import static org.egov.search.domain.Filters.withAndPlusOrFilters;
-import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -34,7 +34,7 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
         SearchResult searchResult = searchService.search(asList(indexName), asList(), Filters.withAndFilters(andFilters), Sort.NULL, Page.NULL);
 
         assertThat(searchResult.documentCount(), is(3));
-        assertThat(complaintNumbers(searchResult), contains("299DIF", "751HFP", "696IDN"));
+        assertThat(complaintNumbers(searchResult), containsInAnyOrder("299DIF", "751HFP", "696IDN"));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
         SearchResult searchResult = searchService.search(asList(indexName), asList(), Filters.withAndFilters(andFilters), Sort.NULL, Page.NULL);
 
         assertThat(searchResult.documentCount(), is(2));
-        assertThat(complaintNumbers(searchResult), contains("751HFP", "696IDN"));
+        assertThat(complaintNumbers(searchResult), containsInAnyOrder("751HFP", "696IDN"));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
 
         SearchResult searchResult = searchService.search(asList(indexName), asList(), Filters.withAndFilters(andFilters), Sort.NULL, Page.NULL);
         assertThat(searchResult.documentCount(), is(2));
-        assertThat(complaintNumbers(searchResult), contains("810FBE", "892JBP"));
+        assertThat(complaintNumbers(searchResult), containsInAnyOrder("810FBE", "892JBP"));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
 
         SearchResult searchResult = searchService.search(asList(indexName), asList(), withAndPlusOrFilters(andFilters, orFilters), Sort.NULL, Page.NULL);
         assertThat(searchResult.documentCount(), is(3));
-        assertThat(complaintNumbers(searchResult), contains("810FBE","820LGN", "751HFP"));
+        assertThat(complaintNumbers(searchResult), containsInAnyOrder("810FBE","820LGN", "751HFP"));
     }
 
     @Test
@@ -81,7 +81,7 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
 
         SearchResult searchResult = searchService.search(asList(indexName), asList(), Filters.withOrFilters(orFilters), Sort.NULL, Page.NULL);
         assertThat(searchResult.documentCount(), is(4));
-        assertThat(complaintNumbers(searchResult), contains("299DIF", "751HFP", "696IDN", "873GBH"));
+        assertThat(complaintNumbers(searchResult), containsInAnyOrder("299DIF", "751HFP", "696IDN", "873GBH"));
     }
 
     @Test
@@ -91,7 +91,7 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
 
         SearchResult searchResult = searchService.search(asList(indexName), asList(), withAndFilters(andFilters), Sort.NULL, Page.NULL);
         assertThat(searchResult.documentCount(), is(2));
-        assertThat(complaintNumbers(searchResult), contains("299DIF","873GBH"));
+        assertThat(complaintNumbers(searchResult), containsInAnyOrder("299DIF","873GBH"));
     }
 
     @Test
@@ -104,7 +104,20 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
 
         SearchResult searchResult = searchService.search(asList(indexName), asList(), withAndPlusNotFilters(andFilters, notInFilters), Sort.NULL, Page.NULL);
         assertThat(searchResult.documentCount(), is(2));
-        assertThat(complaintNumbers(searchResult), contains("751HFP","696IDN"));
+        assertThat(complaintNumbers(searchResult), containsInAnyOrder("751HFP","696IDN"));
+    }
+    @Test
+    public void shouldSearchWithMultipleOrAndNotInFilter(){
+    	 Map<String, String> orFilters = new HashMap<>();
+    	 orFilters.put("clauses.status", "COMPLETED");
+    	 orFilters.put("clauses.mode", "INTERNET");
+    	 
+    	 Map<String, String> notInFilters = new HashMap<>();
+    	 notInFilters.put("searchable.title", "mosquito");
+    	 
+    	 SearchResult searchResult=searchService.search(asList(indexName), asList(indexType), Filters.withOrPlusNotFilters(orFilters,notInFilters), Sort.NULL, Page.NULL);
+    	 assertThat(searchResult.documentCount(), is(2));
+    	 assertThat(complaintNumbers(searchResult), containsInAnyOrder("873GBH","696IDN"));
     }
 
 }

@@ -47,6 +47,10 @@ public class Filters {
     public static Filters withAndPlusNotFilters(Map<String, String> andFilters, Map<String, String> notFilters) {
         return new Filters(andFilters, new HashMap<>(), notFilters);
     }
+    
+    public static Filters withOrPlusNotFilters(Map<String, String> orFilters, Map<String, String> notFilters){
+    	return new Filters(new HashMap<>(), orFilters, notFilters);
+    }
 
     public boolean isNotEmpty() {
         return !isEmpty();
