@@ -47,9 +47,9 @@ String complaintJson = documents.first().getResource();
 
 ###### Refer the following tests to understand more search scenarios:
 
-* [Searching with Filters](src/test/java/org/egov/search/service/SearchServiceMultipleFiltersTest.java)
-* [Searching with Sort](src/test/java/org/egov/search/service/SearchServiceSortTest.java)
-* [Searching with Pagination](src/test/java/org/egov/search/service/SearchServicePaginationTest.java)
+* [Searching with Filters](http://git.egovernments.org/projects/EES/repos/egov-search/browse/src/test/java/org/egov/search/service/SearchServiceMultipleFiltersTest.java)
+* [Searching with Sort](http://git.egovernments.org/projects/EES/repos/egov-search/browse/src/test/java/org/egov/search/service/SearchServiceSortTest.java)
+* [Searching with Pagination](http://git.egovernments.org/projects/EES/repos/egov-search/browse/src/test/java/org/egov/search/service/SearchServicePaginationTest.java)
 
 ## Integrating with your application
 
