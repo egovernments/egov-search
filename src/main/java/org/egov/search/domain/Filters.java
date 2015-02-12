@@ -36,7 +36,7 @@ public class Filters {
         return withAndPlusOrFilters(andFilters, new HashMap<>());
     }
 
-    public static Filters withOrFilters(HashMap<String, String> orFilters) {
+    public static Filters withOrFilters(Map<String, String> orFilters) {
         return withAndPlusOrFilters(new HashMap<>(), orFilters);
     }
 
