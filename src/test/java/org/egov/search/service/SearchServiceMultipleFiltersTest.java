@@ -119,5 +119,16 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
     	 assertThat(searchResult.documentCount(), is(2));
     	 assertThat(complaintNumbers(searchResult), containsInAnyOrder("873GBH","696IDN"));
     }
+    
+    @Test
+    public void shouldSearchWithMultipleOrFilter(){
+    	 Map<String, String> orFilters = new HashMap<>();
+    	 orFilters.put("common.boundary.zone", "N09 or N12");
+    	 orFilters.put("common.created_by.department", "H-HEALTH");
+    	 
+    	 SearchResult searchResult=searchService.search(asList(indexName), asList(indexType), Filters.withOrFilters(orFilters), Sort.NULL, Page.NULL);
+    	 assertThat(searchResult.documentCount(), is(5));
+    	 assertThat(complaintNumbers(searchResult), containsInAnyOrder("299DIF","810FBE","210BIM","696IDN","892JBP"));
+    }
 
 }
