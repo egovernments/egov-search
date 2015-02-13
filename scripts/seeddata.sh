@@ -32,6 +32,6 @@ done
 printf "\n\nIndexing Works Package data\n\n"
 for idx in {1..5}
 do
-	curl -XPOST ${SERVER}/works/workspackage/${idx} --data-binary @works${idx}.json	
+	curl -XPOST ${SERVER}/works/workspackage/${idx} --data-binary @workspackage${idx}.json
 done
 

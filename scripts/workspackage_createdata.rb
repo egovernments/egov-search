@@ -26,8 +26,8 @@ def map_to_json(data)
 end
 
 
-CSV.foreach("works.csv", {:headers => true, :header_converters => :symbol}) do |row|
+CSV.foreach("workspackage.csv", {:headers => true, :header_converters => :symbol}) do |row|
 	# puts row[:id]
 	json = map_to_json row
-	File.write("works#{row[:id]}.json", json.to_json)
+	File.write("workspackage#{row[:id]}.json", json.to_json)
 end
