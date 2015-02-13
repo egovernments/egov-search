@@ -19,8 +19,9 @@ public abstract class SearchServiceTest extends AbstractNodeIntegrationTest {
     protected String indexName;
     protected String indexType;
 
-    private ElasticSearchClient elasticSearchClient;
+    protected ElasticSearchClient elasticSearchClient;
     protected SearchService searchService;
+
     @Mock
     private SearchConfig searchConfig;
 
@@ -41,6 +42,14 @@ public abstract class SearchServiceTest extends AbstractNodeIntegrationTest {
     }
 
 
+    protected List<String> complaintNumbers(SearchResult searchResult) {
+        return read(searchResult.rawResponse(), "$..complaint_number");
+    }
+
+    protected List<String> packageNumbers(SearchResult searchResult) {
+        return read(searchResult.rawResponse(), "$..package_number");
+    }
+
     private void indexPGRdata() {
         for (int id = 203461; id <= 203471; id++) {
             elasticSearchClient.index(id + "", readAsString(format("data/pgr/pgr%s.json", id)), indexName, indexType);
@@ -48,7 +57,10 @@ public abstract class SearchServiceTest extends AbstractNodeIntegrationTest {
         refreshIndices(indexName);
     }
 
-    protected List<String> complaintNumbers(SearchResult searchResult) {
-        return read(searchResult.rawResponse(), "$..complaint_number");
+    protected void indexWorksPackageData() {
+        for (int id = 1; id <= 5; id++) {
+            elasticSearchClient.index(id + "", readAsString(format("data/works/workspackage/workspackage%s.json", id)), indexName, indexType);
+        }
+        refreshIndices(indexName);
     }
 }
