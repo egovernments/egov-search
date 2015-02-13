@@ -51,7 +51,7 @@ String complaintJson = documents.first().getResource();
 * [Searching with Sort](http://git.egovernments.org/projects/EES/repos/egov-search/browse/src/test/java/org/egov/search/service/SearchServiceSortTest.java)
 * [Searching with Pagination](http://git.egovernments.org/projects/EES/repos/egov-search/browse/src/test/java/org/egov/search/service/SearchServicePaginationTest.java)
 
-## Integrating with your application
+#### Integrating with your application
 
 * Add egov-search-[version].jar to your application dependencies
 
@@ -63,7 +63,7 @@ String complaintJson = documents.first().getResource();
 </dependency>
 ```
 
-* Import [applcationContext-search-all.xml](src/main/resources/spring/applcationContext-search-all.xml) in to your application context
+* Import [applcationContext-search-all.xml](http://git.egovernments.org/projects/EES/repos/egov-search/browse/src/main/resources/config/spring/applcationContext-search-all.xml) in to your application context
 
 ```xml
 <import resource="classpath*:config/spring/applicationContext-search-all.xml" />
@@ -75,3 +75,8 @@ String complaintJson = documents.first().getResource();
     - __JMSDestinationReslver__ (bean-name: __jmsDestinationResolver__)
 
 * Your JBoss server should have __Queue__ configured for indexing with JNDI __/jms/queue/searchindex__
+
+#### Configuration
+
+* Have a look at [Configuration](http://git.egovernments.org/projects/EES/repos/egov-search/browse/src/main/resources/config/egov-search.properties) to understand the defaults of the module.
+* To override any of these config, have a file named __egov-search-override.properties' in your JBoss egov-settings module system.
