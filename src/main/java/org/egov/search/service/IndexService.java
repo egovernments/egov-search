@@ -1,7 +1,5 @@
 package org.egov.search.service;
 
-import org.egov.search.Index;
-import org.egov.search.ResourceType;
 import org.egov.search.domain.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
@@ -22,11 +20,11 @@ public class IndexService {
         this.indexQueue = indexQueue;
     }
 
-    public void index(Index index, ResourceType resourceType, Document document) {
+    public void index(String indexName, String indexType, Document document) {
         jmsTemplate.send(indexQueue, session -> {
             TextMessage textMessage = session.createTextMessage(document.toJson());
-            textMessage.setStringProperty("index", index.indexName());
-            textMessage.setStringProperty("type", resourceType.indexType());
+            textMessage.setStringProperty("index", indexName);
+            textMessage.setStringProperty("type", indexType);
             return textMessage;
         });
     }

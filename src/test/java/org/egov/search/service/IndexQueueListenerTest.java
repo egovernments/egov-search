@@ -1,9 +1,6 @@
 package org.egov.search.service;
 
-import org.egov.search.service.ElasticSearchClient;
-import org.egov.search.ResourceType;
 import org.egov.search.domain.Document;
-import org.egov.search.service.IndexQueueListener;
 import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +35,7 @@ public class IndexQueueListenerTest {
         }};
         Document document = new Document("COR123", new JSONObject(resource));
         String indexName = "index-name";
-        String indexType = ResourceType.COMPLAINT_TYPE.indexType();
+        String indexType = "complaint";
 
         when(message.getText()).thenReturn(document.toJson());
         when(message.getStringProperty("index")).thenReturn(indexName);
