@@ -1,0 +1,15 @@
+package org.egov.search.domain;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target({ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Searchable {
+
+    String name() default "";
+
+    boolean nested() default false;
+}
