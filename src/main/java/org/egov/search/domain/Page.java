@@ -9,7 +9,7 @@ public class Page {
     private Page() {
     }
 
-    public Page(int pageNumber, int size) {
+    private Page(int pageNumber, int size) {
         this.pageNumber = pageNumber;
         this.size = size;
     }

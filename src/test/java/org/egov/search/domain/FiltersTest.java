@@ -2,8 +2,9 @@ package org.egov.search.domain;
 
 import org.junit.Test;
 
-import java.util.HashMap;
+import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -19,9 +20,7 @@ public class FiltersTest {
 
     @Test
     public void shouldCheckIfNotEmpty() {
-        HashMap<String, String> filters = new HashMap<>();
-        filters.put("key", "value");
-
+        List<Filter> filters = asList(Filter.matchFilter("key", "value"));
         assertTrue(Filters.withAndFilters(filters).isNotEmpty());
         assertTrue(Filters.withOrFilters(filters).isNotEmpty());
     }
