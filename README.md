@@ -63,7 +63,7 @@ String complaintJson = documents.first().getResource();
 </dependency>
 ```
 
-* Import [applcationContext-search-all.xml](http://git.egovernments.org/projects/EES/repos/egov-search/browse/src/main/resources/config/spring/applcationContext-search-all.xml) in to your application context
+* Import [applcationContext-search-all.xml](http://git.egovernments.org/projects/EES/repos/egov-search/browse/src/main/resources/config/spring/applicationContext-search-all.xml) in to your application context
 
 ```xml
 <import resource="classpath*:config/spring/applicationContext-search-all.xml" />
