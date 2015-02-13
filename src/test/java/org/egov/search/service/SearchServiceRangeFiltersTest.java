@@ -72,4 +72,34 @@ public class SearchServiceRangeFiltersTest extends SearchServiceTest {
         assertThat(searchResult.documentCount(), Is.is(3));
         assertThat(packageNumbers(searchResult), containsInAnyOrder("B/WP/6013/2014-15", "NC/WP/5852/2014-15", "NC/WP/3651/2014-15"));
     }
+    
+    @Test
+    public void shouldFilterByAmountGreaterThan() {
+        indexWorksPackageData();
+
+        List<Filter> andFilters = asList(
+        		rangeFilterFrom("clauses.package_amount", "1000000")
+        );
+
+        Filters filters = Filters.withAndFilters(andFilters);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), filters, Sort.NULL, Page.NULL);
+
+        assertThat(searchResult.documentCount(), Is.is(2));
+        assertThat(packageNumbers(searchResult), containsInAnyOrder("NC/WP/3651/2014-15", "RS/WP/2645/2014-15"));
+    }
+    
+    @Test
+    public void shouldFilterByAmountLesserThan() {
+        indexWorksPackageData();
+
+        List<Filter> andFilters = asList(
+        		rangeFilterTo("clauses.package_amount", "1000000")
+        );
+
+        Filters filters = Filters.withAndFilters(andFilters);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), filters, Sort.NULL, Page.NULL);
+
+        assertThat(searchResult.documentCount(), Is.is(3));
+        assertThat(packageNumbers(searchResult), containsInAnyOrder("NC/WP/5852/2014-15", "NC/WP/1955/2014-15","B/WP/6013/2014-15"));
+    }
 }
