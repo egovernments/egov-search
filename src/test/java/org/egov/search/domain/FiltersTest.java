@@ -20,7 +20,7 @@ public class FiltersTest {
 
     @Test
     public void shouldCheckIfNotEmpty() {
-        List<Filter> filters = asList(Filter.matchFilter("key", "value"));
+        List<Filter> filters = asList(Filter.queryStringFilter("key", "value"));
         assertTrue(Filters.withAndFilters(filters).isNotEmpty());
         assertTrue(Filters.withOrFilters(filters).isNotEmpty());
     }

@@ -10,11 +10,11 @@ public class FilterTest {
 
     @Test
     public void shouldConstructMatchFilter() {
-        Filter filter = Filter.matchFilter("fieldName", "value");
+        Filter filter = Filter.queryStringFilter("fieldName", "value");
 
-        assertThat(filter, instanceOf(MatchFilter.class));
+        assertThat(filter, instanceOf(QueryStringFilter.class));
         assertThat(filter.field(), is("fieldName"));
-        assertThat(((MatchFilter) filter).value(), is("value"));
+        assertThat(((QueryStringFilter) filter).value(), is("value"));
     }
 
     @Test

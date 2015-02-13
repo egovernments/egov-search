@@ -2,7 +2,6 @@ package org.egov.search.service;
 
 import org.egov.search.domain.Filter;
 import org.egov.search.domain.Filters;
-import org.egov.search.domain.MatchFilter;
 import org.egov.search.domain.Page;
 import org.egov.search.domain.SearchResult;
 import org.egov.search.domain.Sort;
@@ -10,7 +9,6 @@ import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,21 +41,22 @@ public class SearchService {
     }
 
     private BoolFilterBuilder constructBoolFilter(Filters filters) {
-        List<QueryStringQueryBuilder> mustQueryStringFilters = queryString(filters.getAndFilters());
-        List<QueryStringQueryBuilder> shouldQueryStringFilters = queryString(filters.getOrFilters());
-        List<QueryStringQueryBuilder> notQueryStringFilters = queryString(filters.getNotInFilters());
+        List<QueryBuilder> mustFilters = queryBuilders(filters.getAndFilters());
+        List<QueryBuilder> shouldFilters = queryBuilders(filters.getOrFilters());
+        List<QueryBuilder> notFilters = queryBuilders(filters.getNotInFilters());
 
         BoolFilterBuilder boolFilterBuilder = FilterBuilders.boolFilter();
-        mustQueryStringFilters.stream().forEach(filter -> boolFilterBuilder.must(FilterBuilders.queryFilter(filter)));
-        shouldQueryStringFilters.stream().forEach(filter -> boolFilterBuilder.should(FilterBuilders.queryFilter(filter)));
-        notQueryStringFilters.stream().forEach(filter -> boolFilterBuilder.mustNot(FilterBuilders.queryFilter(filter)));
+        mustFilters.stream().forEach(filter -> boolFilterBuilder.must(FilterBuilders.queryFilter(filter)));
+        shouldFilters.stream().forEach(filter -> boolFilterBuilder.should(FilterBuilders.queryFilter(filter)));
+        notFilters.stream().forEach(filter -> boolFilterBuilder.mustNot(FilterBuilders.queryFilter(filter)));
 
         return boolFilterBuilder;
     }
 
-    private List<QueryStringQueryBuilder> queryString(List<Filter> filters) {
+    private List<QueryBuilder> queryBuilders(List<Filter> filters) {
         return filters.stream()
-                .map(filter -> QueryBuilders.queryString(((MatchFilter) filter).value()).field(filter.field()))
+                .map(Filter::queryBuilder)
                 .collect(toList());
     }
+
 }
