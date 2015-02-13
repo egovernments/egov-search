@@ -1,5 +1,7 @@
 package org.egov.search.domain;
 
+import org.egov.search.service.SearchResultTransformer;
+
 import java.util.List;
 
 public class SearchResult {

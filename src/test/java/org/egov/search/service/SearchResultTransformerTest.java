@@ -1,7 +1,7 @@
 package org.egov.search.service;
 
 import org.egov.search.domain.Document;
-import org.egov.search.domain.SearchResultTransformer;
+import org.egov.search.service.SearchResultTransformer;
 import org.egov.search.util.JsonMatcher;
 import org.junit.Test;
 

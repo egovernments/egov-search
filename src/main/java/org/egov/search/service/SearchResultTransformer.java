@@ -1,6 +1,7 @@
-package org.egov.search.domain;
+package org.egov.search.service;
 
 import com.jayway.jsonpath.JsonPath;
+import org.egov.search.domain.Document;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
