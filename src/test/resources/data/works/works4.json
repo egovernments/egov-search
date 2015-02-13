@@ -1,1 +1,19 @@
-{"searchable":{"package_name":"NEW CONSTRUCTION OF DRIVERS REST ROOM IN DIV.175,U-40,Z-13."},"clauses":{"estimate_number":"B/2014-15/0075","package_number":"B/WP/6013/2014-15","tender_file_number":"RJCS.B.D.C.NO.G1/02/14","package_amount":519252,"status":"L1 TENDER FINALISED","manual_work_package_number":"RJCS.B.D.C.NO.G1/02/14"},"common":{"owner":{"name":"AHONZ07","position":"ASSISTANT HEALTH OFFICER_29","designation":"ASSISTANT HEALTH OFFICER","department":"NG-AMBATTUR"}}}
+{
+  "searchable": {"package_name": "NEW CONSTRUCTION OF DRIVERS REST ROOM IN DIV.175,U-40,Z-13."},
+  "clauses": {
+    "estimate_number": "B/2014-15/0075",
+    "package_number": "B/WP/6013/2014-15",
+    "tender_file_number": "RJCS.B.D.C.NO.G1/02/14",
+    "package_amount": 519252,
+    "status": "L1 TENDER FINALISED",
+    "manual_work_package_number": "RJCS.B.D.C.NO.G1/02/14"
+  },
+  "common": {
+    "owner": {
+      "name": "AHONZ07",
+      "position": "ASSISTANT HEALTH OFFICER_29",
+      "designation": "ASSISTANT HEALTH OFFICER",
+      "department": "NG-AMBATTUR"
+    }
+  }
+}

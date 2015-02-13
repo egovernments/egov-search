@@ -1,1 +1,19 @@
-{"searchable":{"package_name":"Face lifting and repair works to footpath and centre median at Besent Avenue road, Dr.Muthulakshmi Salai, Kalki Krishnamurthy Salai and Durgabai "},"clauses":{"estimate_number":"RS/2014-15/2267","package_number":"RS/WP/2645/2014-15","tender_file_number":"RS/WP/2645/2014-15","package_amount":2064389,"status":"L1 TENDER FINALISED","manual_work_package_number":"1"},"common":{"owner":{"name":"HO ","position":"HEALTH OFFICER_1","designation":"HEALTH OFFICER","department":"H-Health"}}}
+{
+  "searchable": {"package_name": "Face lifting and repair works to footpath and centre median at Besent Avenue road, Dr.Muthulakshmi Salai, Kalki Krishnamurthy Salai and Durgabai "},
+  "clauses": {
+    "estimate_number": "RS/2014-15/2267",
+    "package_number": "RS/WP/2645/2014-15",
+    "tender_file_number": "RS/WP/2645/2014-15",
+    "package_amount": 2064389,
+    "status": "L1 TENDER FINALISED",
+    "manual_work_package_number": "1"
+  },
+  "common": {
+    "owner": {
+      "name": "HO ",
+      "position": "HEALTH OFFICER_1",
+      "designation": "HEALTH OFFICER",
+      "department": "H-Health"
+    }
+  }
+}

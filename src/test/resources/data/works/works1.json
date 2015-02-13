@@ -1,1 +1,19 @@
-{"searchable":{"package_name":"WARD COUNCILLOR WARD DEVELOPMENT SCHEME 2014-15: \rStrengthening and relaying BT road by paver finisher at Bajanai Koil St (Part)  "},"clauses":{"estimate_number":"NC/2014-15/9206","package_number":"NC/WP/5852/2014-15","tender_file_number":"Z.O.III.C.NO.E1/5761/7/2014","package_amount":761468,"status":"L1 TENDER FINALISED","manual_work_package_number":"E1/5761/7/2014"},"common":{"owner":{"name":"HO ","position":"HEALTH OFFICER_1","designation":"HEALTH OFFICER","department":"H-Health"}}}
+{
+  "searchable": {"package_name": "WARD COUNCILLOR WARD DEVELOPMENT SCHEME 2014-15: \rStrengthening and relaying BT road by paver finisher at Bajanai Koil St (Part)  "},
+  "clauses": {
+    "estimate_number": "NC/2014-15/9206",
+    "package_number": "NC/WP/5852/2014-15",
+    "tender_file_number": "Z.O.III.C.NO.E1/5761/7/2014",
+    "package_amount": 761468,
+    "status": "L1 TENDER FINALISED",
+    "manual_work_package_number": "E1/5761/7/2014"
+  },
+  "common": {
+    "owner": {
+      "name": "HO ",
+      "position": "HEALTH OFFICER_1",
+      "designation": "HEALTH OFFICER",
+      "department": "H-Health"
+    }
+  }
+}

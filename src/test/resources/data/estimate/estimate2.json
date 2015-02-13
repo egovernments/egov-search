@@ -1,1 +1,48 @@
-{"searchable":{"estimate_number":"NC/2014-15/9206","user_department":"NC-MADHAVARM","prepared_by":{"name":"AEDN23","position":"ASSISTANT ENGINEER_394","designation":"ASSISTANT ENGINEER","department":"NC-MADHAVARM"},"description":"STRENGTHININGAND RELAYING OF B T ROAD AI BAJANAI KOIL STREET(PART) IN DN 23 U 6 Z3","fund":"02-CAPTIAL FUND","function":"202107 - Roads and Building Maintenance","budgethead":"412200400-SPECIFIC FUND -COUNCILLOR WARD IMPROVEMENT FUND","estimate_amount":795000,"asset_category":"ROADS AND BRIDGES","asset_name":"bajanai koil street"},"clauses":{"type":"ROADS","sub_type":"IRR -RELAYING","nature":"CAPITAL WORKS - NEW ASSET","status":"ADMIN SANCTIONED","project_code":"05/NC/2851/2014-15","asset_code":"R/21189/1554/2011-12"},"common":{"boundary":{"zone":"N03","ward":"N023","area":null,"locality":null,"street":null},"created_by":{"name":"CIDN123","position":"CONSERVANCY INSPECTOR_430","designation":"CONSERVANCY INSPECTOR","department":"NJ-TEYNAMPET"},"owner":{"name":"CIDN123","position":"CONSERVANCY INSPECTOR_430","designation":"CONSERVANCY INSPECTOR","department":"NJ-TEYNAMPET"}}}
+{
+  "searchable": {
+    "estimate_number": "NC/2014-15/9206",
+    "user_department": "NC-MADHAVARM",
+    "prepared_by": {
+      "name": "AEDN23",
+      "position": "ASSISTANT ENGINEER_394",
+      "designation": "ASSISTANT ENGINEER",
+      "department": "NC-MADHAVARM"
+    },
+    "description": "STRENGTHININGAND RELAYING OF B T ROAD AI BAJANAI KOIL STREET(PART) IN DN 23 U 6 Z3",
+    "fund": "02-CAPTIAL FUND",
+    "function": "202107 - Roads and Building Maintenance",
+    "budgethead": "412200400-SPECIFIC FUND -COUNCILLOR WARD IMPROVEMENT FUND",
+    "estimate_amount": 795000,
+    "asset_category": "ROADS AND BRIDGES",
+    "asset_name": "bajanai koil street"
+  },
+  "clauses": {
+    "type": "ROADS",
+    "sub_type": "IRR -RELAYING",
+    "nature": "CAPITAL WORKS - NEW ASSET",
+    "status": "ADMIN SANCTIONED",
+    "project_code": "05/NC/2851/2014-15",
+    "asset_code": "R/21189/1554/2011-12"
+  },
+  "common": {
+    "boundary": {
+      "zone": "N03",
+      "ward": "N023",
+      "area": null,
+      "locality": null,
+      "street": null
+    },
+    "created_by": {
+      "name": "CIDN123",
+      "position": "CONSERVANCY INSPECTOR_430",
+      "designation": "CONSERVANCY INSPECTOR",
+      "department": "NJ-TEYNAMPET"
+    },
+    "owner": {
+      "name": "CIDN123",
+      "position": "CONSERVANCY INSPECTOR_430",
+      "designation": "CONSERVANCY INSPECTOR",
+      "department": "NJ-TEYNAMPET"
+    }
+  }
+}
