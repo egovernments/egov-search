@@ -1,7 +1,5 @@
 package org.egov.search.service;
 
-import org.egov.search.util.Beans;
-
 import java.lang.reflect.Field;
 
 public class SimpleType extends Type {
@@ -11,8 +9,8 @@ public class SimpleType extends Type {
     }
 
     @Override
-    public Object propertyValue(Object object) {
-        return Beans.readPropertyValue(object, field);
+    public Object retrievePropertyValue(Object fieldValue) {
+        return fieldValue;
     }
 
 }

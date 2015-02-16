@@ -30,5 +30,12 @@ public class TypeTest {
 
         assertThat(Type.newInstanceFor(addressesField), instanceOf(CollectionType.class));
     }
+    
+    @Test
+    public void shouldIdentifyMapType() throws NoSuchFieldException {
+        Field addressesField = Person.class.getDeclaredField("communicationAddresses");
+
+        assertThat(Type.newInstanceFor(addressesField), instanceOf(MapType.class));
+    }
 
 }

@@ -26,6 +26,10 @@ public class Person {
     @Searchable(name = "previous_department")
     private Department previousDepartment;
 
+    @Searchable
+    private Map<String, Address> communicationAddresses;
+
+
     private String role;
 
     public static Person newInstance() {
@@ -46,7 +50,13 @@ public class Person {
 
         person.previousDepartment = new Department(2, "oldDeptName", "oldDeptCode");
 
-        person.addresses = Arrays.asList(new Address("str1", "560001"), new Address("str2", "560002"));
+        Address addr1 = new Address("str1", "560001");
+        Address addr2 = new Address("str2", "560002");
+        person.addresses = Arrays.asList(addr1, addr2);
+
+        person.communicationAddresses = new HashMap<>();
+        person.communicationAddresses.put("primary", addr1);
+        person.communicationAddresses.put("secondary", new Address("str2", null));
 
         return person;
     }
@@ -85,5 +95,9 @@ public class Person {
 
     public List<Address> getAddresses() {
         return addresses;
+    }
+
+    public Map<String, Address> getCommunicationAddresses() {
+        return communicationAddresses;
     }
 }

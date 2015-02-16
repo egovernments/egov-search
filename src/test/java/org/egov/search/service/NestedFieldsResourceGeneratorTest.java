@@ -50,7 +50,12 @@ public class NestedFieldsResourceGeneratorTest {
 
     @Test
     public void withNestedObjectInACollection() {
-        System.out.println(json);
         with(json).assertThat("$.addresses[*].street", containsInAnyOrder("str1", "str2"));
+    }
+
+    @Test
+    public void withNestedObjectInAMap() {
+        with(json).assertEquals("$.communicationAddresses.primary.street", "str1");
+        with(json).assertEquals("$.communicationAddresses.secondary.street", "str2");
     }
 }

@@ -1,7 +1,6 @@
 package org.egov.search.service;
 
 import net.minidev.json.JSONArray;
-import org.egov.search.util.Beans;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -12,12 +11,7 @@ public class CollectionType extends Type {
     }
 
     @Override
-    public Object propertyValue(Object object) {
-        Object fieldValue = Beans.readPropertyValue(object, field);
-        if (fieldValue == null) {
-            return null;
-        }
-
+    public Object retrievePropertyValue(Object fieldValue) {
         JSONArray jsonArray = new JSONArray();
         Collection collection = (Collection) fieldValue;
 

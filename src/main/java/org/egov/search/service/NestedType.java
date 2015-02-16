@@ -1,7 +1,5 @@
 package org.egov.search.service;
 
-import org.egov.search.util.Beans;
-
 import java.lang.reflect.Field;
 
 public class NestedType extends Type {
@@ -11,12 +9,7 @@ public class NestedType extends Type {
     }
 
     @Override
-    public Object propertyValue(Object object) {
-        Object fieldValue = Beans.readPropertyValue(object, field);
-        if (fieldValue == null) {
-            return null;
-        }
-
+    public Object retrievePropertyValue(Object fieldValue) {
         return new ResourceGenerator<>(field.getType(), fieldValue).generate();
     }
 }
