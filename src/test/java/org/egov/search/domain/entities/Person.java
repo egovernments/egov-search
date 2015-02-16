@@ -21,10 +21,12 @@ public class Person {
     private Map<String, String> serviceHistory;
     @Searchable
     private List<Address> addresses;
-    @Searchable
+    @Searchable(group = Searchable.Group.COMMON)
     private Department currentDepartment;
     @Searchable(name = "previous_department")
     private Department previousDepartment;
+    @Searchable(group = Searchable.Group.CLAUSES)
+    private String status;
 
     @Searchable
     private Map<String, Address> communicationAddresses;
@@ -38,6 +40,7 @@ public class Person {
         person.age = 37;
         person.citizen = true;
         person.role = "Manager";
+        person.status = "ACTIVE";
 
         person.jobs = Arrays.asList("Job One", "Job Two");
 
@@ -99,5 +102,9 @@ public class Person {
 
     public Map<String, Address> getCommunicationAddresses() {
         return communicationAddresses;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

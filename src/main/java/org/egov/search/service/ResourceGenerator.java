@@ -12,10 +12,16 @@ import java.util.List;
 public class ResourceGenerator<T> {
     private final Class<T> clazz;
     private final Object object;
+    private boolean rootLevel;
 
     public ResourceGenerator(Class<T> clazz, Object object) {
+        this(clazz, object, true);
+    }
+
+    public ResourceGenerator(Class<T> clazz, Object object, boolean rootLevel) {
         this.clazz = clazz;
         this.object = object;
+        this.rootLevel = rootLevel;
     }
 
     public JSONObject generate() {
@@ -34,7 +40,13 @@ public class ResourceGenerator<T> {
 
         Object fieldValue = Type.newInstanceFor(field).propertyValue(object);
 
-        if(fieldValue != null) {
+        if (fieldValue == null) {
+            return;
+        }
+
+        if(rootLevel) {
+            searchable.group().addFieldToJson(jsonObject, fieldName, fieldValue);
+        } else {
             jsonObject.put(fieldName, fieldValue);
         }
     }

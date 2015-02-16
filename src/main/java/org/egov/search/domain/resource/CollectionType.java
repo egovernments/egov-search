@@ -18,7 +18,7 @@ public class CollectionType extends Type {
 
         collection.stream().forEach(entry -> {
             if(isSearchable(entry))
-                jsonArray.add(new ResourceGenerator<>(entry.getClass(), entry).generate());
+                jsonArray.add(new ResourceGenerator<>(entry.getClass(), entry, false).generate());
             else
                 jsonArray.add(entry);
         });

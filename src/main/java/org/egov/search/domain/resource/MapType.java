@@ -22,7 +22,7 @@ public class MapType extends Type {
             if (!isSearchable(value)) {
                 json.put(entry.getKey(), value);
             } else {
-                json.put(entry.getKey(), new ResourceGenerator<>(value.getClass(), value).generate());
+                json.put(entry.getKey(), new ResourceGenerator<>(value.getClass(), value, false).generate());
             }
 
         });

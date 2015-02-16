@@ -24,38 +24,38 @@ public class NestedFieldsResourceGeneratorTest {
 
     @Test
     public void withNestedObject() {
-        with(json).assertEquals("$.currentDepartment.name", "deptName");
-        with(json).assertEquals("$.currentDepartment.code", "deptCode");
-        with(json).assertNotDefined("$.currentDepartment.id");
+        with(json).assertEquals("$.common.currentDepartment.name", "deptName");
+        with(json).assertEquals("$.common.currentDepartment.code", "deptCode");
+        with(json).assertNotDefined("$.common.currentDepartment.id");
     }
 
     @Test
     public void withMultipleNestedObjects() {
-        with(json).assertEquals("$.currentDepartment.name", "deptName");
-        with(json).assertEquals("$.currentDepartment.code", "deptCode");
-        with(json).assertNotDefined("$.currentDepartment.id");
+        with(json).assertEquals("$.common.currentDepartment.name", "deptName");
+        with(json).assertEquals("$.common.currentDepartment.code", "deptCode");
+        with(json).assertNotDefined("$.common.currentDepartment.id");
 
-        with(json).assertEquals("$.previous_department.name", "oldDeptName");
-        with(json).assertEquals("$.previous_department.code", "oldDeptCode");
-        with(json).assertNotDefined("$.previous_department.id");
+        with(json).assertEquals("$.searchable.previous_department.name", "oldDeptName");
+        with(json).assertEquals("$.searchable.previous_department.code", "oldDeptCode");
+        with(json).assertNotDefined("$.searchable.previous_department.id");
     }
 
     @Test
     public void withMultiLevelNestedObject() {
-        with(json).assertEquals("$.currentDepartment.address.street", "mg road");
-        with(json).assertEquals("$.currentDepartment.address.pincode", "560001");
+        with(json).assertEquals("$.common.currentDepartment.address.street", "mg road");
+        with(json).assertEquals("$.common.currentDepartment.address.pincode", "560001");
 
-        with(json).assertNotDefined("$.previous_department.address");
+        with(json).assertNotDefined("$.searchable.previous_department.address");
     }
 
     @Test
     public void withNestedObjectInACollection() {
-        with(json).assertThat("$.addresses[*].street", containsInAnyOrder("str1", "str2"));
+        with(json).assertThat("$.searchable.addresses[*].street", containsInAnyOrder("str1", "str2"));
     }
 
     @Test
     public void withNestedObjectInAMap() {
-        with(json).assertEquals("$.communicationAddresses.primary.street", "str1");
-        with(json).assertEquals("$.communicationAddresses.secondary.street", "str2");
+        with(json).assertEquals("$.searchable.communicationAddresses.primary.street", "str1");
+        with(json).assertEquals("$.searchable.communicationAddresses.secondary.street", "str2");
     }
 }
