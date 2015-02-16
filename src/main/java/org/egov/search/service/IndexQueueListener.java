@@ -24,11 +24,9 @@ public class IndexQueueListener implements MessageListener {
     @Override
     public void onMessage(Message message) {
         try {
-            String indexName = message.getStringProperty("index");
-            String indexType = message.getStringProperty("type");
             String documentMessage = ((TextMessage) message).getText();
             Document doc = Document.fromJson(documentMessage);
-            esIndexClient.index(doc.getCorrelationId(), documentMessage, indexName, indexType);
+            esIndexClient.index(doc.getIndex(), doc.getType(), doc.getCorrelationId(), doc.getResource().toJSONString());
         } catch (JMSException e) {
             throw new RuntimeException(e);
         }

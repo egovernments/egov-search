@@ -51,7 +51,7 @@ public class ElasticSearchClientTest extends AbstractNodeIntegrationTest {
         attrs.put("location", "Bengaluru");
 
         String type = "employee";
-        boolean documentIndexed = indexClient.index("document_id", new JSONObject(attrs).toJSONString(), indexName, type);
+        boolean documentIndexed = indexClient.index(indexName, type, "document_id", new JSONObject(attrs).toJSONString());
         assertTrue(documentIndexed);
 
         refreshIndices(indexName);
@@ -78,7 +78,7 @@ public class ElasticSearchClientTest extends AbstractNodeIntegrationTest {
         resource.put("searchable", searchable);
         resource.put("clauses", clauses);
 
-        boolean indexed = indexClient.index("123", resource.toJSONString(), indexName, "users");
+        boolean indexed = indexClient.index(indexName, "users", "123", resource.toJSONString());
         assertTrue(indexed);
 
         refreshIndices(indexName);

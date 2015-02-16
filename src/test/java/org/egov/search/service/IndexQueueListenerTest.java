@@ -33,17 +33,18 @@ public class IndexQueueListenerTest {
         HashMap<String, String> resource = new HashMap<String, String>() {{
             put("name", "john");
         }};
-        Document document = new Document("COR123", new JSONObject(resource));
         String indexName = "index-name";
         String indexType = "complaint";
 
-        when(message.getText()).thenReturn(document.toJson());
+        Document document = new Document(indexName, indexType, "COR123", new JSONObject(resource));
+
+        when(message.getText()).thenReturn(document.toJSONString());
         when(message.getStringProperty("index")).thenReturn(indexName);
         when(message.getStringProperty("type")).thenReturn(indexType);
 
         indexQueueListener.onMessage(message);
 
-        verify(esIndexClient).index("COR123", document.toJson(), indexName, indexType);
+        verify(esIndexClient).index(indexName, indexType, "COR123", document.getResource().toJSONString());
     }
 
 }

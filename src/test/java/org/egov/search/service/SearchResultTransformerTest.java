@@ -1,7 +1,6 @@
 package org.egov.search.service;
 
 import org.egov.search.domain.Document;
-import org.egov.search.service.SearchResultTransformer;
 import org.egov.search.util.JsonMatcher;
 import org.junit.Test;
 
@@ -25,6 +24,8 @@ public class SearchResultTransformerTest {
         Document firstDocument = result.get(0);
         assertTrue(firstDocument instanceof Document);
         assertThat(firstDocument.getCorrelationId(), is("203461"));
+        assertThat(firstDocument.getIndex(), is("searchservicetest"));
+        assertThat(firstDocument.getType(), is("complaint"));
         assertThat(firstDocument.getResource().toJSONString(), JsonMatcher.matches(readAsString("searchResponseTransformerTest-doc1.json")));
     }
 

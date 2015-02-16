@@ -52,14 +52,14 @@ public abstract class SearchServiceTest extends AbstractNodeIntegrationTest {
 
     private void indexPGRdata() {
         for (int id = 203461; id <= 203471; id++) {
-            elasticSearchClient.index(id + "", readAsString(format("data/pgr/pgr%s.json", id)), indexName, indexType);
+            elasticSearchClient.index(indexName, indexType, id + "", readAsString(format("data/pgr/pgr%s.json", id)));
         }
         refreshIndices(indexName);
     }
 
     protected void indexWorksPackageData() {
         for (int id = 1; id <= 5; id++) {
-            elasticSearchClient.index(id + "", readAsString(format("data/works/workspackage/workspackage%s.json", id)), indexName, indexType);
+            elasticSearchClient.index(indexName, indexType, id + "", readAsString(format("data/works/workspackage/workspackage%s.json", id)));
         }
         refreshIndices(indexName);
     }

@@ -17,8 +17,11 @@ public class SearchResultTransformer {
 
         for (Map hit : hits) {
             String id = (String) hit.get("_id");
+            String index = (String) hit.get("_index");
+            String type = (String) hit.get("_type");
             Map source = (Map) hit.get("_source");
-            documents.add(new Document(id, new JSONObject(source)));
+
+            documents.add(new Document(index, type, id, new JSONObject(source)));
         }
 
         return documents;

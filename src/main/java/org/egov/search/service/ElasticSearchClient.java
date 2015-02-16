@@ -33,16 +33,16 @@ class ElasticSearchClient {
         this.searchConfig = searchConfig;
     }
 
-    public boolean index(String documentId, String document, String indexName, String type) {
-        if (!indexExists(indexName)) {
-            createIndex(indexName);
+    public boolean index(String index, String type, String id, String json) {
+        if (!indexExists(index)) {
+            createIndex(index);
         }
 
         IndexRequestBuilder indexRequestBuilder = new IndexRequestBuilder(client)
-                .setIndex(indexName)
+                .setIndex(index)
                 .setType(type)
-                .setSource(document)
-                .setId(documentId);
+                .setSource(json)
+                .setId(id);
 
         IndexResponse indexResponse = client.index(indexRequestBuilder.request()).actionGet();
         return indexResponse.isCreated();
