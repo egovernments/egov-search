@@ -19,13 +19,12 @@ public class Person {
     private List<String> jobs;
     @Searchable
     private Map<String, String> serviceHistory;
-
-    @Searchable(nested = true)
+    @Searchable
+    private List<Address> addresses;
+    @Searchable
     private Department currentDepartment;
-
-    @Searchable(nested = true, name = "previous_department")
+    @Searchable(name = "previous_department")
     private Department previousDepartment;
-
 
     private String role;
 
@@ -46,6 +45,8 @@ public class Person {
         person.currentDepartment.setAddress(new Address("mg road", "560001"));
 
         person.previousDepartment = new Department(2, "oldDeptName", "oldDeptCode");
+
+        person.addresses = Arrays.asList(new Address("str1", "560001"), new Address("str2", "560002"));
 
         return person;
     }
@@ -80,5 +81,9 @@ public class Person {
 
     public Department getPreviousDepartment() {
         return previousDepartment;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
     }
 }

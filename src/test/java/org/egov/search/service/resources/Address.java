@@ -2,6 +2,7 @@ package org.egov.search.service.resources;
 
 import org.egov.search.domain.Searchable;
 
+@Searchable
 public class Address {
     @Searchable
     private String street;

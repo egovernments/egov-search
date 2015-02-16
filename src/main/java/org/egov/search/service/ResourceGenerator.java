@@ -8,8 +8,6 @@ import org.json.simple.JSONObject;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import static org.egov.search.util.Beans.readPropertyValue;
-
 public class ResourceGenerator<T> {
     private final Class<T> clazz;
     private final Object object;
@@ -33,14 +31,11 @@ public class ResourceGenerator<T> {
         Searchable searchable = searchableAnnotation(field);
         String fieldName = fieldName(field, searchable);
 
-        Object fieldValue = readPropertyValue(object, field);
-        if(fieldValue == null) return;
+        Object fieldValue = Type.newInstanceFor(field).propertyValue(object);
 
-        if (searchable.nested()) {
-            fieldValue = nestedPropertyValue(fieldValue, field);
+        if(fieldValue != null) {
+            jsonObject.put(fieldName, fieldValue);
         }
-
-        jsonObject.put(fieldName, fieldValue);
     }
 
     private String fieldName(Field field, Searchable searchable) {
@@ -50,10 +45,6 @@ public class ResourceGenerator<T> {
             fieldName = searchable.name();
         }
         return fieldName;
-    }
-
-    private Object nestedPropertyValue(Object object, Field field) {
-        return new ResourceGenerator<>(field.getType(), object).generate();
     }
 
     private boolean isSearchableField(Field field) {

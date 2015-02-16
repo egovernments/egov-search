@@ -2,6 +2,7 @@ package org.egov.search.service.resources;
 
 import org.egov.search.domain.Searchable;
 
+@Searchable
 public class Department {
 
     @Searchable
@@ -10,7 +11,7 @@ public class Department {
     @Searchable
     private String code;
 
-    @Searchable(nested = true)
+    @Searchable
     private Address address;
 
     private long id;
