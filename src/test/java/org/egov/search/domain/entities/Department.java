@@ -11,7 +11,7 @@ public class Department {
     @Searchable
     private String code;
 
-    @Searchable
+    @Searchable(group = Searchable.Group.CLAUSES)
     private Address address;
 
     private long id;

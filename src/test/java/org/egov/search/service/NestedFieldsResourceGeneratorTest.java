@@ -58,4 +58,9 @@ public class NestedFieldsResourceGeneratorTest {
         with(json).assertEquals("$.searchable.communicationAddresses.primary.street", "str1");
         with(json).assertEquals("$.searchable.communicationAddresses.secondary.street", "str2");
     }
+
+    @Test
+    public void shouldNotGroupNestedObjectsBeyondFirstLevelInRootJson() {
+        with(json).assertNotDefined("$.common.currentDepartment.clauses");
+    }
 }
