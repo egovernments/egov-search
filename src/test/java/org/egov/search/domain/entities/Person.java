@@ -27,6 +27,11 @@ public class Person {
     private Department previousDepartment;
     @Searchable(group = Searchable.Group.CLAUSES)
     private String status;
+    @Searchable(name = "car")
+    private Vehicle vehicle;
+
+    @Searchable
+    private List<Vehicle> vehicles;
 
     @Searchable
     private Map<String, Address> communicationAddresses;
@@ -60,6 +65,9 @@ public class Person {
         person.communicationAddresses = new HashMap<>();
         person.communicationAddresses.put("primary", addr1);
         person.communicationAddresses.put("secondary", new Address("str2", null));
+
+        person.vehicle = new Car("ferrari");
+        person.vehicles = Arrays.asList(new Car("ferrari"), new Bike("bullet"));
 
         return person;
     }
@@ -106,5 +114,13 @@ public class Person {
 
     public String getStatus() {
         return status;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public List<Vehicle> getVehicles() {
+        return vehicles;
     }
 }

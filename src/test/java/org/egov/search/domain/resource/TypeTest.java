@@ -14,28 +14,28 @@ public class TypeTest {
     public void shouldIdentifySimpleType() throws NoSuchFieldException {
         Field nameField = Person.class.getDeclaredField("name");
 
-        assertThat(Type.newInstanceFor(nameField), instanceOf(SimpleType.class));
+        assertThat(Type.newInstanceFor(nameField, nameField.getType()), instanceOf(SimpleType.class));
     }
 
     @Test
     public void shouldIdentifyNestedType() throws NoSuchFieldException {
         Field deptField = Person.class.getDeclaredField("currentDepartment");
 
-        assertThat(Type.newInstanceFor(deptField), instanceOf(NestedType.class));
+        assertThat(Type.newInstanceFor(deptField, deptField.getType()), instanceOf(NestedType.class));
     }
 
     @Test
     public void shouldIdentifyCollectionType() throws NoSuchFieldException {
         Field addressesField = Person.class.getDeclaredField("addresses");
 
-        assertThat(Type.newInstanceFor(addressesField), instanceOf(CollectionType.class));
+        assertThat(Type.newInstanceFor(addressesField, addressesField.getType()), instanceOf(CollectionType.class));
     }
     
     @Test
     public void shouldIdentifyMapType() throws NoSuchFieldException {
         Field addressesField = Person.class.getDeclaredField("communicationAddresses");
 
-        assertThat(Type.newInstanceFor(addressesField), instanceOf(MapType.class));
+        assertThat(Type.newInstanceFor(addressesField, addressesField.getType()), instanceOf(MapType.class));
     }
 
 }

@@ -21,10 +21,12 @@ public class IndexService {
     }
 
     public void index(String indexName, String indexType, Document document) {
+        //TODO: Check for null values and throw biz exception
+
         jmsTemplate.send(indexQueue, session -> {
             TextMessage textMessage = session.createTextMessage(document.toJson());
-            textMessage.setStringProperty("index", indexName);
-            textMessage.setStringProperty("type", indexType);
+            textMessage.setStringProperty("index", indexName.toLowerCase());
+            textMessage.setStringProperty("type", indexType.toLowerCase());
             return textMessage;
         });
     }

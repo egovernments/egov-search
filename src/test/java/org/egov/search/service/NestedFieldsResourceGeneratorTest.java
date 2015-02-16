@@ -63,4 +63,12 @@ public class NestedFieldsResourceGeneratorTest {
     public void shouldNotGroupNestedObjectsBeyondFirstLevelInRootJson() {
         with(json).assertNotDefined("$.common.currentDepartment.clauses");
     }
+
+    @Test
+    public void withNestedInheritedObject() {
+        with(json).assertEquals("$.searchable.car.name", "ferrari");
+
+        with(json).assertThat("$.searchable.vehicles[*].name", containsInAnyOrder("ferrari", "bullet"));
+        with(json).assertThat("$.searchable.vehicles[*].manufacturer", containsInAnyOrder("enfield"));
+    }
 }

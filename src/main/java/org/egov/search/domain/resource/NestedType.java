@@ -12,6 +12,6 @@ public class NestedType extends Type {
 
     @Override
     public Object retrievePropertyValue(Object fieldValue) {
-        return new ResourceGenerator<>(field.getType(), fieldValue, false).generate();
+        return new ResourceGenerator<>(fieldValue.getClass(), fieldValue, false).generate();
     }
 }

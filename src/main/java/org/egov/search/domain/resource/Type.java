@@ -15,8 +15,7 @@ public abstract class Type {
         this.field = field;
     }
 
-    public static Type newInstanceFor(Field field) {
-        Class<?> fieldClazz = field.getType();
+    public static Type newInstanceFor(Field field, Class<?> fieldClazz) {
 
         if (Collection.class.isAssignableFrom(fieldClazz)) {
             return new CollectionType(field);
