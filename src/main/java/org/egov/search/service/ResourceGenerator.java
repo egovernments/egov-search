@@ -37,27 +37,17 @@ public class ResourceGenerator<T> {
     private void addFieldToJson(JSONObject jsonObject, Field field) {
         Searchable searchable = searchableAnnotation(field);
         String fieldName = fieldName(field, searchable);
+        Object fieldValue = Beans.readPropertyValue(object, field);
 
-        Object fieldValue = Type.newInstanceFor(field, fieldClazz(field)).propertyValue(object);
-
-        if (fieldValue == null) {
-            return;
-        }
+        if (fieldValue == null) return;
+        Type type = Type.newInstanceFor(field, fieldValue.getClass());
+        fieldValue = type.propertyValue(object);
 
         if (rootLevel) {
             searchable.group().addFieldToJson(jsonObject, fieldName, fieldValue);
         } else {
             jsonObject.put(fieldName, fieldValue);
         }
-    }
-
-    private Class<?> fieldClazz(Field field) {
-        Class<?> fieldClazz = field.getType();
-        Object fieldValue = Beans.readPropertyValue(object, field);
-        if (fieldValue != null) {
-            fieldClazz = fieldValue.getClass();
-        }
-        return fieldClazz;
     }
 
     private String fieldName(Field field, Searchable searchable) {

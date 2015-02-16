@@ -16,11 +16,11 @@ public class CollectionType extends Type {
         JSONArray jsonArray = new JSONArray();
         Collection collection = (Collection) fieldValue;
 
-        collection.stream().forEach(entry -> {
-            if(isSearchable(entry))
-                jsonArray.add(new ResourceGenerator<>(entry.getClass(), entry, false).generate());
+        collection.stream().forEach(item -> {
+            if(isSearchable(item))
+                jsonArray.add(new ResourceGenerator<>(item.getClass(), item, false).generate());
             else
-                jsonArray.add(entry);
+                jsonArray.add(item);
         });
         return jsonArray;
     }

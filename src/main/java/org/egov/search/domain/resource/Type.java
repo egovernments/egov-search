@@ -35,14 +35,10 @@ public abstract class Type {
 
     public Object propertyValue(Object object) {
         Object fieldValue = Beans.readPropertyValue(object, field);
-        if (fieldValue == null) {
-            return null;
-        }
         return retrievePropertyValue(fieldValue);
-
     }
 
-    public abstract Object retrievePropertyValue(Object fieldValue);
+    protected abstract Object retrievePropertyValue(Object fieldValue);
 
     protected boolean isSearchable(Object object) {
         return object != null && object.getClass().getAnnotation(Searchable.class) != null;
