@@ -1,6 +1,6 @@
 package org.egov.search.service;
 
-import org.egov.search.service.resources.Person;
+import org.egov.search.domain.entities.Person;
 import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;

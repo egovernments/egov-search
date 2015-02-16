@@ -1,4 +1,4 @@
-package org.egov.search.service;
+package org.egov.search.domain.resource;
 
 import java.lang.reflect.Field;
 

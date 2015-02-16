@@ -1,4 +1,4 @@
-package org.egov.search.service;
+package org.egov.search.domain.resource;
 
 import org.egov.search.domain.Searchable;
 import org.egov.search.util.Beans;

@@ -2,6 +2,7 @@ package org.egov.search.service;
 
 import org.apache.commons.lang.StringUtils;
 import org.egov.search.domain.Searchable;
+import org.egov.search.domain.resource.Type;
 import org.egov.search.util.Beans;
 import org.json.simple.JSONObject;
 

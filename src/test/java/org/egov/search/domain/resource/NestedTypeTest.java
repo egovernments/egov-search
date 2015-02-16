@@ -1,6 +1,6 @@
-package org.egov.search.service;
+package org.egov.search.domain.resource;
 
-import org.egov.search.service.resources.Person;
+import org.egov.search.domain.entities.Person;
 import org.hamcrest.Matchers;
 import org.json.simple.JSONObject;
 import org.junit.Test;

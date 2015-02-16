@@ -1,6 +1,7 @@
-package org.egov.search.service;
+package org.egov.search.domain.resource;
 
 import net.minidev.json.JSONArray;
+import org.egov.search.service.ResourceGenerator;
 
 import java.lang.reflect.Field;
 import java.util.Collection;

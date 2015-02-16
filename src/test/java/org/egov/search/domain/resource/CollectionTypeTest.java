@@ -1,7 +1,7 @@
-package org.egov.search.service;
+package org.egov.search.domain.resource;
 
 import net.minidev.json.JSONArray;
-import org.egov.search.service.resources.Person;
+import org.egov.search.domain.entities.Person;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
