@@ -25,7 +25,7 @@ public class SearchServiceRangeFiltersTest extends SearchServiceTest {
         );
         Filters filters = Filters.withAndFilters(andFilters);
 
-        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), filters, Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), "", filters, Sort.NULL, Page.NULL);
 
         assertThat(searchResult.documentCount(), Is.is(6));
         assertThat(complaintNumbers(searchResult), containsInAnyOrder("810FBE", "820LGN", "225OEJ", "210BIM", "396LLE", "994JFK"));
@@ -39,7 +39,7 @@ public class SearchServiceRangeFiltersTest extends SearchServiceTest {
         );
         Filters filters = Filters.withAndFilters(andFilters);
 
-        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), filters, Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), "", filters, Sort.NULL, Page.NULL);
 
         assertThat(searchResult.documentCount(), Is.is(3));
         assertThat(complaintNumbers(searchResult), containsInAnyOrder("751HFP", "696IDN", "892JBP"));
@@ -52,7 +52,7 @@ public class SearchServiceRangeFiltersTest extends SearchServiceTest {
                 rangeFilter("common.created_date", "05-Jan-15", "09-Jan-15")
         );
         Filters filters = Filters.withAndFilters(andFilters);
-        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), filters, Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), "", filters, Sort.NULL, Page.NULL);
 
         assertThat(searchResult.documentCount(), Is.is(3));
         assertThat(complaintNumbers(searchResult), containsInAnyOrder("751HFP", "696IDN", "892JBP"));
@@ -67,7 +67,7 @@ public class SearchServiceRangeFiltersTest extends SearchServiceTest {
         );
 
         Filters filters = Filters.withAndFilters(andFilters);
-        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), filters, Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), "", filters, Sort.NULL, Page.NULL);
 
         assertThat(searchResult.documentCount(), Is.is(3));
         assertThat(packageNumbers(searchResult), containsInAnyOrder("B/WP/6013/2014-15", "NC/WP/5852/2014-15", "NC/WP/3651/2014-15"));
@@ -82,7 +82,7 @@ public class SearchServiceRangeFiltersTest extends SearchServiceTest {
         );
 
         Filters filters = Filters.withAndFilters(andFilters);
-        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), filters, Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), "", filters, Sort.NULL, Page.NULL);
 
         assertThat(searchResult.documentCount(), Is.is(2));
         assertThat(packageNumbers(searchResult), containsInAnyOrder("NC/WP/3651/2014-15", "RS/WP/2645/2014-15"));
@@ -97,7 +97,7 @@ public class SearchServiceRangeFiltersTest extends SearchServiceTest {
         );
 
         Filters filters = Filters.withAndFilters(andFilters);
-        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), filters, Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), "", filters, Sort.NULL, Page.NULL);
 
         assertThat(searchResult.documentCount(), Is.is(3));
         assertThat(packageNumbers(searchResult), containsInAnyOrder("NC/WP/5852/2014-15", "NC/WP/1955/2014-15","B/WP/6013/2014-15"));

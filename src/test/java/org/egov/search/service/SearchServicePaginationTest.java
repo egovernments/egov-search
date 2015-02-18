@@ -15,7 +15,7 @@ public class SearchServicePaginationTest extends SearchServiceTest {
 
     @Test
     public void shouldSearchByNullPage() {
-        SearchResult searchResult = searchService.search(asList(indexName), asList(), Filters.NULL, Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(), "", Filters.NULL, Sort.NULL, Page.NULL);
 
         assertThat(searchResult.documentCount(), is(11));
     }
@@ -23,12 +23,12 @@ public class SearchServicePaginationTest extends SearchServiceTest {
     @Test
     public void shouldSearchByGivenPageSize() {
         Page page = Page.at(1).ofSize(3);
-        SearchResult searchResult = searchService.search(asList(indexName), asList(), Filters.NULL, Sort.NULL, page);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(), "", Filters.NULL, Sort.NULL, page);
 
         assertThat(searchResult.documentCount(), is(3));
         assertThat(complaintNumbers(searchResult), contains("299DIF", "810FBE", "820LGN"));
 
-        searchResult = searchService.search(asList(indexName), asList(), Filters.NULL, Sort.NULL, page.nextPage());
+        searchResult = searchService.search(asList(indexName), asList(), "", Filters.NULL, Sort.NULL, page.nextPage());
 
         assertThat(searchResult.documentCount(), is(3));
         assertThat(complaintNumbers(searchResult), contains("225OEJ", "210BIM", "396LLE"));

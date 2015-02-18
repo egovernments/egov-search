@@ -20,7 +20,7 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
 
     @Test
     public void shouldSearchWithEmptyFilters() {
-        SearchResult searchResult = searchService.search(asList(indexName), asList(), Filters.NULL, Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(), "", Filters.NULL, Sort.NULL, Page.NULL);
 
         assertThat(searchResult.documentCount(), is(11));
     }
@@ -29,7 +29,7 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
     public void shouldSearchWithSingleFilter() {
         List<Filter> andFilters = asList(queryStringFilter("clauses.mode", "INTERNET"));
 
-        SearchResult searchResult = searchService.search(asList(indexName), asList(), withAndFilters(andFilters), Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(), "", withAndFilters(andFilters), Sort.NULL, Page.NULL);
 
         assertThat(searchResult.documentCount(), is(3));
         assertThat(complaintNumbers(searchResult), containsInAnyOrder("299DIF", "751HFP", "696IDN"));
@@ -40,7 +40,7 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
         List<Filter> andFilters = asList(queryStringFilter("clauses.mode", "INTERNET"),
                 queryStringFilter("clauses.status", "REGISTERED"));
 
-        SearchResult searchResult = searchService.search(asList(indexName), asList(), withAndFilters(andFilters), Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(), "", withAndFilters(andFilters), Sort.NULL, Page.NULL);
 
         assertThat(searchResult.documentCount(), is(2));
         assertThat(complaintNumbers(searchResult), containsInAnyOrder("751HFP", "696IDN"));
@@ -51,7 +51,7 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
         List<Filter> andFilters = asList(queryStringFilter("clauses.status", "REGISTERED"),
                 queryStringFilter("common.citizen.address", "jakkasandra"));
 
-        SearchResult searchResult = searchService.search(asList(indexName), asList(), withAndFilters(andFilters), Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(), "", withAndFilters(andFilters), Sort.NULL, Page.NULL);
         assertThat(searchResult.documentCount(), is(2));
         assertThat(complaintNumbers(searchResult), containsInAnyOrder("810FBE", "892JBP"));
     }
@@ -61,7 +61,7 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
         List<Filter> andFilters = asList(queryStringFilter("clauses.status", "REGISTERED"));
         List<Filter> orFilters = asList(queryStringFilter("searchable.title", "mosquito OR garbage"));
 
-        SearchResult searchResult = searchService.search(asList(indexName), asList(), withAndPlusOrFilters(andFilters, orFilters), Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(), "", withAndPlusOrFilters(andFilters, orFilters), Sort.NULL, Page.NULL);
         assertThat(searchResult.documentCount(), is(3));
         assertThat(complaintNumbers(searchResult), containsInAnyOrder("810FBE", "820LGN", "751HFP"));
     }
@@ -71,7 +71,7 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
         List<Filter> orFilters = asList(queryStringFilter("clauses.status", "COMPLETED"),
                 queryStringFilter("clauses.mode", "INTERNET"));
 
-        SearchResult searchResult = searchService.search(asList(indexName), asList(), withOrFilters(orFilters), Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(), "", withOrFilters(orFilters), Sort.NULL, Page.NULL);
         assertThat(searchResult.documentCount(), is(4));
         assertThat(complaintNumbers(searchResult), containsInAnyOrder("299DIF", "751HFP", "696IDN", "873GBH"));
     }
@@ -80,7 +80,7 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
     public void shouldSearchWithOrFiltersOnSameField() {
         List<Filter> andFilters = asList(queryStringFilter("clauses.status", "FORWARDED OR COMPLETED"));
 
-        SearchResult searchResult = searchService.search(asList(indexName), asList(), withAndFilters(andFilters), Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(), "", withAndFilters(andFilters), Sort.NULL, Page.NULL);
         assertThat(searchResult.documentCount(), is(2));
         assertThat(complaintNumbers(searchResult), containsInAnyOrder("299DIF", "873GBH"));
     }
@@ -90,7 +90,7 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
         List<Filter> andFilters = asList(queryStringFilter("clauses.status", "REGISTERED"));
         List<Filter> notInFilters = asList(queryStringFilter("clauses.mode", "CITIZEN"));
 
-        SearchResult searchResult = searchService.search(asList(indexName), asList(), withAndPlusNotFilters(andFilters, notInFilters), Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(), "", withAndPlusNotFilters(andFilters, notInFilters), Sort.NULL, Page.NULL);
         assertThat(searchResult.documentCount(), is(2));
         assertThat(complaintNumbers(searchResult), containsInAnyOrder("751HFP", "696IDN"));
     }
@@ -101,7 +101,7 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
                 queryStringFilter("clauses.mode", "INTERNET"));
         List<Filter> notInFilters = asList(queryStringFilter("searchable.title", "mosquito"));
 
-        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), Filters.withOrPlusNotFilters(orFilters, notInFilters), Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), "", Filters.withOrPlusNotFilters(orFilters, notInFilters), Sort.NULL, Page.NULL);
         assertThat(searchResult.documentCount(), is(2));
         assertThat(complaintNumbers(searchResult), containsInAnyOrder("873GBH", "696IDN"));
     }
@@ -111,7 +111,7 @@ public class SearchServiceMultipleFiltersTest extends SearchServiceTest {
         List<Filter> orFilters = asList(queryStringFilter("common.boundary.zone", "N09 or N12"),
                 queryStringFilter("common.created_by.department", "H-HEALTH"));
 
-        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), withOrFilters(orFilters), Sort.NULL, Page.NULL);
+        SearchResult searchResult = searchService.search(asList(indexName), asList(indexType), "", withOrFilters(orFilters), Sort.NULL, Page.NULL);
         assertThat(searchResult.documentCount(), is(5));
         assertThat(complaintNumbers(searchResult), containsInAnyOrder("299DIF", "810FBE", "210BIM", "696IDN", "892JBP"));
     }

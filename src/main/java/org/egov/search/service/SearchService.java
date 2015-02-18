@@ -1,11 +1,13 @@
 package org.egov.search.service;
 
+import org.apache.commons.lang.StringUtils;
 import org.egov.search.domain.Filter;
 import org.egov.search.domain.Filters;
 import org.egov.search.domain.Page;
 import org.egov.search.domain.SearchResult;
 import org.egov.search.domain.Sort;
 import org.elasticsearch.index.query.BoolFilterBuilder;
+import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -26,14 +28,22 @@ public class SearchService {
         this.elasticSearchClient = elasticSearchClient;
     }
 
-    public SearchResult search(List<String> indices, List<String> types, Filters filters, Sort sort, Page page) {
-        BoolFilterBuilder boolFilterBuilder = constructBoolFilter(filters);
+    public SearchResult search(List<String> indices, List<String> types, String searchText, Filters filters, Sort sort, Page page) {
+        FilterBuilder filterBuilder = constructBoolFilter(filters);
+
+        QueryBuilder queryBuilder = QueryBuilders.matchAllQuery();
+        if(StringUtils.isNotEmpty(searchText)) {
+            queryBuilder = QueryBuilders.queryString(searchText)
+                    .lenient(true)
+                    .field("searchable.*")
+                    .field("common.*");
+        }
 
         QueryBuilder rootQueryBuilder;
         if (filters.isNotEmpty()) {
-            rootQueryBuilder = QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), boolFilterBuilder);
+            rootQueryBuilder = QueryBuilders.filteredQuery(queryBuilder, filterBuilder);
         } else {
-            rootQueryBuilder = QueryBuilders.matchAllQuery();
+            rootQueryBuilder = queryBuilder;
         }
 
         String response = elasticSearchClient.search(indices, types, rootQueryBuilder, sort, page);
