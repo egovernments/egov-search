@@ -3,6 +3,7 @@ package org.egov.search.domain;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
 
 public class Filters {
     public static final Filters NULL = new Filters();
@@ -16,9 +17,13 @@ public class Filters {
     }
 
     private Filters(List<Filter> andFilters, List<Filter> orFilters, List<Filter> notInFilters) {
-        this.andFilters = andFilters;
-        this.orFilters = orFilters;
-        this.notInFilters = notInFilters;
+        this.andFilters = removeNoOpFilters(andFilters);
+        this.orFilters = removeNoOpFilters(orFilters);
+        this.notInFilters = removeNoOpFilters(notInFilters);
+    }
+
+    private List<Filter> removeNoOpFilters(List<Filter> filters) {
+        return filters.stream().filter(f -> !(f instanceof NoOpFilter)).collect(toList());
     }
 
     public List<Filter> getAndFilters() {

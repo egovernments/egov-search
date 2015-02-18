@@ -25,4 +25,12 @@ public class FiltersTest {
         assertTrue(Filters.withOrFilters(filters).isNotEmpty());
     }
 
+    @Test
+    public void shouldIgnoreFiltersIfValueIsEmpty() {
+        List<Filter> filters = asList(Filter.queryStringFilter("key", ""));
+
+        assertTrue(Filters.withAndFilters(filters).isEmpty());
+        assertTrue(Filters.withOrFilters(filters).isEmpty());
+    }
+
 }

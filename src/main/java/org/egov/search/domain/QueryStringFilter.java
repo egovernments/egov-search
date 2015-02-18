@@ -7,7 +7,7 @@ public class QueryStringFilter extends Filter {
 
     private String value;
 
-    public QueryStringFilter(String fieldName, String value) {
+    QueryStringFilter(String fieldName, String value) {
         super(fieldName);
         this.value = value;
     }
