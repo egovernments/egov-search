@@ -12,7 +12,7 @@ public class CollectionType extends Type {
     }
 
     @Override
-    public Object retrievePropertyValue(Object fieldValue) {
+    public Object retrieveJsonValue(Object fieldValue) {
         JSONArray jsonArray = new JSONArray();
         Collection collection = (Collection) fieldValue;
 

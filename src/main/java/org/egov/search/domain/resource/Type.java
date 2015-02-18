@@ -33,12 +33,12 @@ public abstract class Type {
         return new SimpleType(field);
     }
 
-    public Object propertyValue(Object object) {
+    public Object jsonValue(Object object) {
         Object fieldValue = Beans.readPropertyValue(object, field);
-        return retrievePropertyValue(fieldValue);
+        return retrieveJsonValue(fieldValue);
     }
 
-    protected abstract Object retrievePropertyValue(Object fieldValue);
+    protected abstract Object retrieveJsonValue(Object fieldValue);
 
     protected boolean isSearchable(Object object) {
         return object != null && object.getClass().getAnnotation(Searchable.class) != null;

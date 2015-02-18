@@ -41,7 +41,7 @@ public class ResourceGenerator<T> {
 
         if (fieldValue == null) return;
         Type type = Type.newInstanceFor(field, fieldValue.getClass());
-        fieldValue = type.propertyValue(object);
+        fieldValue = type.jsonValue(object);
 
         if (rootLevel) {
             searchable.group().addFieldToJson(jsonObject, fieldName, fieldValue);

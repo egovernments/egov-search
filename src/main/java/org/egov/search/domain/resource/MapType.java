@@ -12,7 +12,7 @@ public class MapType extends Type {
     }
 
     @Override
-    public Object retrievePropertyValue(Object fieldValue) {
+    public Object retrieveJsonValue(Object fieldValue) {
         JSONObject json = new JSONObject();
         Map map = (Map) fieldValue;
 

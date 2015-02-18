@@ -15,7 +15,7 @@ public class SimpleTypeTest {
         Person person = Person.newInstance();
         Field nameField = Person.class.getDeclaredField("name");
 
-        Object name = new SimpleType(nameField).propertyValue(person);
+        Object name = new SimpleType(nameField).jsonValue(person);
 
         assertThat(name, Is.is("Elzan"));
     }

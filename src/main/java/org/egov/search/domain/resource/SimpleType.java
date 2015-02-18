@@ -9,7 +9,7 @@ public class SimpleType extends Type {
     }
 
     @Override
-    public Object retrievePropertyValue(Object fieldValue) {
+    public Object retrieveJsonValue(Object fieldValue) {
         return fieldValue;
     }
 

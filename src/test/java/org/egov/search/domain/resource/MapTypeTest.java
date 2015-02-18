@@ -17,7 +17,7 @@ public class MapTypeTest {
         Person person = Person.newInstance();
         Field serviceHistoryField = Person.class.getDeclaredField("serviceHistory");
 
-        Object mapValue = new MapType(serviceHistoryField).propertyValue(person);
+        Object mapValue = new MapType(serviceHistoryField).jsonValue(person);
 
         assertThat(mapValue, Matchers.instanceOf(JSONObject.class));
 
@@ -31,7 +31,7 @@ public class MapTypeTest {
         Person person = Person.newInstance();
         Field communicationAddressesField = Person.class.getDeclaredField("communicationAddresses");
 
-        Object mapValue = new MapType(communicationAddressesField).propertyValue(person);
+        Object mapValue = new MapType(communicationAddressesField).jsonValue(person);
 
         assertThat(mapValue, Matchers.instanceOf(JSONObject.class));
 

@@ -17,7 +17,7 @@ public class NestedTypeTest {
         Person person = Person.newInstance();
         Field departmentField = Person.class.getDeclaredField("currentDepartment");
 
-        Object nestedValue = new NestedType(departmentField).propertyValue(person);
+        Object nestedValue = new NestedType(departmentField).jsonValue(person);
 
         assertThat(nestedValue, Matchers.instanceOf(JSONObject.class));
 

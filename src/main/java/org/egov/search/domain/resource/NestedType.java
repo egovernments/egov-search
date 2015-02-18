@@ -11,7 +11,7 @@ public class NestedType extends Type {
     }
 
     @Override
-    public Object retrievePropertyValue(Object fieldValue) {
+    public Object retrieveJsonValue(Object fieldValue) {
         return new ResourceGenerator<>(fieldValue.getClass(), fieldValue, false).generate();
     }
 }

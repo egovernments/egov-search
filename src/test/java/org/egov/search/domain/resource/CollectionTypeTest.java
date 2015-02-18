@@ -17,7 +17,7 @@ public class CollectionTypeTest {
         Person person = Person.newInstance();
         Field jobsField = Person.class.getDeclaredField("jobs");
 
-        Object collectionValue = new CollectionType(jobsField).propertyValue(person);
+        Object collectionValue = new CollectionType(jobsField).jsonValue(person);
 
         assertThat(collectionValue, Matchers.instanceOf(JSONArray.class));
 
@@ -30,7 +30,7 @@ public class CollectionTypeTest {
         Person person = Person.newInstance();
         Field addressesField = Person.class.getDeclaredField("addresses");
 
-        Object collectionValue = new CollectionType(addressesField).propertyValue(person);
+        Object collectionValue = new CollectionType(addressesField).jsonValue(person);
 
         assertThat(collectionValue, Matchers.instanceOf(JSONArray.class));
         String json = ((JSONArray) collectionValue).toJSONString();
