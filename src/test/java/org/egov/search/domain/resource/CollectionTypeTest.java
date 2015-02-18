@@ -1,8 +1,8 @@
 package org.egov.search.domain.resource;
 
-import net.minidev.json.JSONArray;
 import org.egov.search.domain.entities.Person;
 import org.hamcrest.Matchers;
+import org.json.simple.JSONArray;
 import org.junit.Test;
 
 import java.lang.reflect.Field;

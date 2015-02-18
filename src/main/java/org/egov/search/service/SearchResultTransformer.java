@@ -1,7 +1,7 @@
 package org.egov.search.service;
 
-import com.jayway.jsonpath.JsonPath;
 import org.egov.search.domain.Document;
+import org.egov.search.util.Serializer;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -12,18 +12,19 @@ public class SearchResultTransformer {
 
     public List<Document> transform(String response) {
         List<Document> documents = new ArrayList<>();
+        JSONObject responseJson = Serializer.fromJson(response, JSONObject.class);
 
-        List<Map> hits = JsonPath.read(response, "$.hits.hits[*]");
+        List hits = (List) ((Map) responseJson.get("hits")).get("hits");
+        for (Object hit : hits) {
+            Map hitMap = (Map) hit;
 
-        for (Map hit : hits) {
-            String id = (String) hit.get("_id");
-            String index = (String) hit.get("_index");
-            String type = (String) hit.get("_type");
-            Map source = (Map) hit.get("_source");
+            String id = (String) hitMap.get("_id");
+            String index = (String) hitMap.get("_index");
+            String type = (String) hitMap.get("_type");
+            Map source = (Map) hitMap.get("_source");
 
             documents.add(new Document(index, type, id, new JSONObject(source)));
         }
-
         return documents;
     }
 }
