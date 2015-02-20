@@ -51,21 +51,21 @@ public class SearchService {
     }
 
     private BoolFilterBuilder constructBoolFilter(Filters filters) {
-        List<QueryBuilder> mustFilters = queryBuilders(filters.getAndFilters());
-        List<QueryBuilder> shouldFilters = queryBuilders(filters.getOrFilters());
-        List<QueryBuilder> notFilters = queryBuilders(filters.getNotInFilters());
+        List<FilterBuilder> mustFilters = queryBuilders(filters.getAndFilters());
+        List<FilterBuilder> shouldFilters = queryBuilders(filters.getOrFilters());
+        List<FilterBuilder> notFilters = queryBuilders(filters.getNotInFilters());
 
         BoolFilterBuilder boolFilterBuilder = FilterBuilders.boolFilter();
-        mustFilters.stream().forEach(filter -> boolFilterBuilder.must(FilterBuilders.queryFilter(filter)));
-        shouldFilters.stream().forEach(filter -> boolFilterBuilder.should(FilterBuilders.queryFilter(filter)));
-        notFilters.stream().forEach(filter -> boolFilterBuilder.mustNot(FilterBuilders.queryFilter(filter)));
+        mustFilters.stream().forEach(boolFilterBuilder::must);
+        shouldFilters.stream().forEach(boolFilterBuilder::should);
+        notFilters.stream().forEach(boolFilterBuilder::mustNot);
 
         return boolFilterBuilder;
     }
 
-    private List<QueryBuilder> queryBuilders(List<Filter> filters) {
+    private List<FilterBuilder> queryBuilders(List<Filter> filters) {
         return filters.stream()
-                .map(Filter::queryBuilder)
+                .map(Filter::filterBuilder)
                 .collect(toList());
     }
 
