@@ -72,11 +72,12 @@ String complaintJson = documents.first().getResource();
 * Your JBoss server should have JMS module enabled and your comsumer application should have configured with spring beans:
     - __JMSConnectionFactory__ (bean-name: __cacheConnectionFactory__)
     - __TransactionManager__ (bean-name: __transactionManager__)  
-    - __JMSDestinationReslver__ (bean-name: __jmsDestinationResolver__)
+    - __JMSDestinationResolver__ (bean-name: __jmsDestinationResolver__)
+    - __JMSTemplate__ (bean-name: __jmsTemplate__)
 
 * Your JBoss server should have __Queue__ configured for indexing with JNDI __/jms/queue/searchindex__
 
 #### Configuration
 
 * Have a look at [Configuration](http://git.egovernments.org/projects/EES/repos/egov-search/browse/src/main/resources/config/egov-search.properties) to understand the defaults of the module.
-* To override any of these config, have a file named __egov-search-override.properties' in your JBoss egov-settings module system.
+* To override any of these config, have a file named __egov-search-override.properties__ in your JBoss egov-settings module system.
