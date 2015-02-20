@@ -11,7 +11,7 @@
 
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
-    <jee:jndi-lookup id="indexQueue" jndi-name="java:/jms/queue/searchindex" expected-type="javax.jms.Destination"
+    <jee:jndi-lookup id="indexQueue" jndi-name="${search.index.q}" expected-type="javax.jms.Destination"
                      resource-ref="true"/>
 
     <jms:listener-container connection-factory="cacheConnectionFactory"
@@ -21,7 +21,7 @@
                             container-type="default"
                             concurrency="1">
 
-        <jms:listener id="indexQueueListenerId" destination="java:/jms/queue/searchindex"
+        <jms:listener id="indexQueueListenerId" destination="${search.index.q}"
                       ref="indexQueueListener" method="onMessage"/>
     </jms:listener-container>
 
