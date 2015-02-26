@@ -1,12 +1,11 @@
 package org.egov.search.service;
 
+import javax.jms.Destination;
+
 import org.egov.search.domain.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
-
-import javax.jms.Destination;
-import javax.jms.TextMessage;
 
 @Service
 public class IndexService {
