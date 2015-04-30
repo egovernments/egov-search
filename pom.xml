@@ -137,9 +137,9 @@
 
 	<distributionManagement>
 		<snapshotRepository>
-			<id>arti.egovernments.org</id>
+			<id>repo.egovernments.org</id>
 			<name>e-governments nexus repository</name>
-			<url>http://arti.egovernments.org/nexus/content/repositories/snapshots/</url>
+			<url>http://repo.egovernments.org/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 

@@ -6,13 +6,13 @@
         <mirror>
             <id>nexus</id>
             <mirrorOf>central</mirrorOf>
-            <url>http://arti.egovernments.org/nexus/content/groups/public/</url>
+            <url>http://repo.egovernments.org/nexus/content/groups/public/</url>
         </mirror>
     </mirrors>
 
     <servers>
         <server>
-            <id>arti.egovernments.org</id>
+            <id>repo.egovernments.org</id>
             <username>deployment</username>
             <password>egovnexus7918</password>
         </server>
