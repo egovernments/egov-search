@@ -8,7 +8,8 @@
         <property name="locations">
             <list>
                 <value>classpath*:config/egov-search.properties</value>
-                <value>classpath*:config/egov-search-override.properties</value>
+                <value>classpath*:config/egov-erp-override.properties</value>
+                <value>classpath*:config/egov-erp-{user.name}.properties</value>
             </list>
         </property>
 
