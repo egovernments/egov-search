@@ -77,7 +77,19 @@ String complaintJson = documents.first().getResource();
 
 * Your JBoss server should have __Queue__ configured for indexing with JNDI __/jms/queue/searchindex__
 
-#### Configuration
+#### Configuring JBoss Wildfly
 
 * Have a look at [Configuration](http://git.egovernments.org/projects/EES/repos/egov-search/browse/src/main/resources/config/egov-search.properties) to understand the defaults of the module.
-* To override any of these config, have a file named __egov-search-override.properties__ in your JBoss egov-settings module system.
+* In case properties needs to be overridden, edit the below file (This is only required if `egov-erp-<username>.properties` is not present)
+
+  ```
+  <JBOSS_HOME>/modules/system/layers/base/
+
+  org
+  └── egov
+    └── settings
+      └── main
+          ├── config
+          │   └── egov-erp-override.properties
+          └── module.xml
+  ```
