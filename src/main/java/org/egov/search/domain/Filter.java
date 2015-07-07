@@ -66,5 +66,13 @@ public abstract class Filter {
 		}
 		return rangeFilter(fieldName, null, to);
 	}
+	
+	public static Filter termsStringFilter(String fieldName, String value) {
+		if (StringUtils.isEmpty(value) || StringUtils.isEmpty(fieldName)) {
+			return new NoOpFilter();
+		}
+		
+		return new TermsStringFilter(fieldName, value);
+	}
 
 }
