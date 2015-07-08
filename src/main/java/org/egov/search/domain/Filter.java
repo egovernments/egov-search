@@ -1,5 +1,8 @@
 package org.egov.search.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -67,12 +70,20 @@ public abstract class Filter {
 		return rangeFilter(fieldName, null, to);
 	}
 	
-	public static Filter termsStringFilter(String fieldName, String value) {
-		if (StringUtils.isEmpty(value) || StringUtils.isEmpty(fieldName)) {
+	public static Filter termsStringFilter(String fieldName, String... values) {
+		List<String> valuesList =new ArrayList<String>(0);
+		
+		for(String value:values) {
+			if(value!=null) {
+				valuesList.add(value);
+			}
+		}
+		
+		if (StringUtils.isEmpty(fieldName) || valuesList.size()==0) {
 			return new NoOpFilter();
 		}
 		
-		return new TermsStringFilter(fieldName, value);
+		return new TermsStringFilter(fieldName, valuesList.stream().toArray(String[]::new));
 	}
 
 }

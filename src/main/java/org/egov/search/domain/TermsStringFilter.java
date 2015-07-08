@@ -5,19 +5,19 @@ import org.elasticsearch.index.query.FilterBuilders;
 
 public class TermsStringFilter extends Filter {
 
-    private String value;
+    private String[] values;
 
-    TermsStringFilter(String fieldName, String value) {
+    TermsStringFilter(String fieldName, String... values) {
         super(fieldName);
-        this.value = value;
+        this.values = values;
     }
 
-    public String value() {
-        return this.value;
+    public String[] values() {
+        return this.values;
     }
 
     @Override
     public FilterBuilder filterBuilder() {
-        return FilterBuilders.termsFilter(this.field(), this.value());
+        return FilterBuilders.termsFilter(this.field(), this.values());
     }
 }
