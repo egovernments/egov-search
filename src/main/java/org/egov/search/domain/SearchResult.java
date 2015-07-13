@@ -2,6 +2,7 @@ package org.egov.search.domain;
 
 import org.egov.search.service.SearchResultTransformer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchResult {
@@ -31,7 +32,10 @@ public class SearchResult {
     }
 
     public static SearchResult from(String response) {
-        List<Document> documentList = new SearchResultTransformer().transform(response);
+        List<Document> documentList = new ArrayList<Document>(0);
+        if(response!=null && !"".equals(response)){
+        	documentList =	new SearchResultTransformer().transform(response);
+        }
         return new SearchResult(response, documentList);
     }
 }

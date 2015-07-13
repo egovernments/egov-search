@@ -1,5 +1,7 @@
 package org.egov.search.service;
 
+import java.util.List;
+
 import org.egov.search.config.SearchConfig;
 import org.egov.search.domain.Page;
 import org.egov.search.domain.Sort;
@@ -18,8 +20,6 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 class ElasticSearchClient {
@@ -48,17 +48,28 @@ class ElasticSearchClient {
         return indexResponse.isCreated();
     }
 
-    public String search(List<String> indices, List<String> types, QueryBuilder queryBuilder, Sort sort, Page page) {
-        SearchRequestBuilder requestBuilder = new SearchRequestBuilder(client)
-                .setIndices(toArray(indices))
-                .setTypes(toArray(types))
-                .setQuery(queryBuilder)
-                .setFrom(page.offset())
-                .setSize(page.size());
-
-        sort.stream().forEach(sf -> requestBuilder.addSort(sf.field(), sf.order()));
-        SearchResponse searchResponse = client.search(requestBuilder.request()).actionGet();
-        return searchResponse.toString();
+	public String search(List<String> indices, List<String> types,QueryBuilder queryBuilder, Sort sort, Page page) {
+		SearchRequestBuilder requestBuilder = new SearchRequestBuilder(client)
+				.setIndices(toArray(indices))
+				.setTypes(toArray(types))
+				.setQuery(queryBuilder)
+				.setFrom(page.offset())
+				.setSize(page.size());
+		
+		sort.stream().forEach(sf -> requestBuilder.addSort(sf.field(), sf.order()));
+		boolean indexExits = indices.stream().allMatch(obj -> {
+			if (!indexExists(obj)) {
+				return false;
+			}
+			return true;
+		});
+		SearchResponse searchResponse = null;
+		if (indexExits) {
+			searchResponse = client.search(requestBuilder.request())
+					.actionGet();
+		}
+		return searchResponse != null ? searchResponse.toString() : "";
+         
     }
 
     private String[] toArray(List<String> list) {
