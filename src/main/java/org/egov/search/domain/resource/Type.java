@@ -1,11 +1,12 @@
 package org.egov.search.domain.resource;
 
-import org.egov.search.domain.Searchable;
-import org.egov.search.util.Beans;
-
 import java.lang.reflect.Field;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Map;
+
+import org.egov.search.domain.Searchable;
+import org.egov.search.util.Beans;
 
 public abstract class Type {
 
@@ -24,7 +25,10 @@ public abstract class Type {
         if (Map.class.isAssignableFrom(fieldClazz)) {
             return new MapType(field);
         }
-
+        if(Date.class.isAssignableFrom(fieldClazz)) {
+        	return new DateType(field);
+        }
+        
         Searchable searchable = fieldClazz.getAnnotation(Searchable.class);
         if (searchable != null) {
             return new NestedType(field);
