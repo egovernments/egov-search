@@ -9,14 +9,16 @@ import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
 public class JsonMapper extends ObjectMapper {
-
+	
+	private static final long serialVersionUID = 1L;
+	
     public JsonMapper() {
         this.setSerializationInclusion(Include.NON_NULL);
         this.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
         this.registerModule(new JodaModule());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd\'T\'HH:mm\'Z\'");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         this.setDateFormat(dateFormat);
+        this.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
     }
 }
