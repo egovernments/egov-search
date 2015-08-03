@@ -31,11 +31,6 @@ public class SearchServiceFreeTextTest extends SearchServiceTest {
         assertThat(complaintNumbers(searchResult), containsInAnyOrder("299DIF"));
     }
     
-    @Test
-    public void shouldNotSearchForFreeTextInClausesSection() {
-        SearchResult searchResult = searchService.search(asList(indexName), asList(), "FORWARDED", Filters.NULL, Sort.NULL, Page.NULL);
-
-        assertThat(searchResult.documentCount(), is(0));
-    }
+    
 
 }

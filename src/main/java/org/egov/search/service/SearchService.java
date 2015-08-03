@@ -36,7 +36,8 @@ public class SearchService {
             queryBuilder = QueryBuilders.queryString(searchText)
                     .lenient(true)
                     .field("searchable.*")
-                    .field("common.*");
+                    .field("common.*")
+            		.field("clause.*");
         }
 
         QueryBuilder rootQueryBuilder;
