@@ -37,7 +37,7 @@ public class SearchService {
                     .lenient(true)
                     .field("searchable.*")
                     .field("common.*")
-            		.field("clause.*");
+            		.field("clauses.*");
         }
 
         QueryBuilder rootQueryBuilder;
