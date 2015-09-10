@@ -13,8 +13,8 @@
     <servers>
         <server>
             <id>repo.egovernments.org</id>
-            <username>deployment</username>
-            <password>egovnexus7918</password>
+            <username>${user}</username>
+            <password>${password}</password>
         </server>
     </servers>
 
