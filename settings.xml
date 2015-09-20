@@ -13,8 +13,8 @@
     <servers>
         <server>
             <id>repo.egovernments.org</id>
-            <username>${user}</username>
-            <password>${password}</password>
+            <username>${nexus.user}</username>
+            <password>${nexus.password}</password>
         </server>
     </servers>
 
