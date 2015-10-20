@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<name>e-governments search</name>
 	<groupId>org.egov.search</groupId>
 	<artifactId>egov-search</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 
 	<description>eGov Elastic Search and Java Domain Model Integration Framework</description>
 
@@ -21,7 +20,8 @@
 		<connection>scm:git:git://github.com/egovernments/eGov-Search.git</connection>
 		<developerConnection>scm:git:git@github.com:egovernments/eGov-Search.git</developerConnection>
 		<url>https://github.com/egovernments/eGov-Search</url>
-	</scm>
+	  <tag>1.0.0</tag>
+  </scm>
 
 	<organization>
 		<name>eGovernments Foundation</name>
