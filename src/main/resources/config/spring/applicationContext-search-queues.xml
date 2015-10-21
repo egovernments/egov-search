@@ -19,7 +19,9 @@
                             transaction-manager="transactionManager"
                             destination-resolver="jmsDestinationResolver"
                             container-type="default"
-                            concurrency="1">
+                            concurrency="1"
+                            acknowledge="transacted"
+                            recovery-interval="120000">
 
         <jms:listener id="indexQueueListenerId" destination="${search.index.q}"
                       ref="indexQueueListener" method="onMessage"/>

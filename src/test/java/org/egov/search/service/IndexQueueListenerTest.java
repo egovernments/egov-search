@@ -1,5 +1,14 @@
 package org.egov.search.service;
 
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.HashMap;
+
+import javax.jms.JMSException;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+
 import org.egov.search.domain.Document;
 import org.json.simple.JSONObject;
 import org.junit.Before;
@@ -7,18 +16,13 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import javax.jms.JMSException;
-import javax.jms.TextMessage;
-import java.util.HashMap;
-
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 public class IndexQueueListenerTest {
     @Mock
     private ElasticSearchClient esIndexClient;
     @Mock
     private TextMessage message;
+    @Mock
+    private Session session;
 
     private IndexQueueListener indexQueueListener;
 
@@ -42,7 +46,7 @@ public class IndexQueueListenerTest {
         when(message.getStringProperty("index")).thenReturn(indexName);
         when(message.getStringProperty("type")).thenReturn(indexType);
 
-        indexQueueListener.onMessage(message);
+        indexQueueListener.onMessage(message,session);
 
         verify(esIndexClient).index(indexName, indexType, "COR123", document.getResource().toJSONString());
     }
