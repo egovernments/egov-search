@@ -16,6 +16,24 @@
           "format": "dd-MMM-YY"
         }
       }
+    },
+    {
+      "searchable": {
+        "path_match": "*email",
+        "mapping": {
+          "index": "not_analyzed"
+          
+        }
+      }
+    },
+    {
+      "common": {
+        "path_match": "*email",
+        "mapping": {
+          "index": "not_analyzed"
+          
+        }
+      }
     }
   ]
 }
