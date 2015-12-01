@@ -20,12 +20,16 @@
                             destination-resolver="jmsDestinationResolver"
                             container-type="default"
                             concurrency="1"
-                            acknowledge="transacted"
-                            recovery-interval="120000">
-
+                            acknowledge="transacted"                           
+                            back-off="retry">
+ 
         <jms:listener id="indexQueueListenerId" destination="${search.index.q}"
                       ref="indexQueueListener" method="onMessage"/>
     </jms:listener-container>
+    <bean id="retry" class="org.springframework.util.backoff.FixedBackOff">
+    	<property name="interval" value="900000"/>
+    	<property name="maxAttempts" value="3"/>
+    </bean>
 
 </beans>
 
