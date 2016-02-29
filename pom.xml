@@ -56,7 +56,20 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring-version>4.1.4.RELEASE</spring-version>
+		<spring-version>4.2.5.RELEASE</spring-version>
+		<elastic-search-version>1.7.1</elastic-search-version>
+		<json-simple-version>1.1.1</json-simple-version>
+		<jackson-version>2.2.3</jackson-version>
+		<jackson-datatype-joda-version>2.3.1</jackson-datatype-joda-version>
+		<commons-io-version>2.4</commons-io-version>
+		<javax-jms-version>1.0.0.Final</javax-jms-version>
+		<commons-beanutils-version>1.8.3</commons-beanutils-version>
+		<commons-lang-version>2.5</commons-lang-version>
+		<jayway-version>1.2.0</jayway-version>
+		<jayway-restassured-version>2.4.0</jayway-restassured-version>
+		<junit-version>4.11</junit-version>
+		<mockito-all-version>1.10.19</mockito-all-version>
+		<jsonassert-version>1.2.0</jsonassert-version>
 	</properties>
 
 	<pluginRepositories>
@@ -98,86 +111,85 @@
 		<dependency>
 			<groupId>org.elasticsearch</groupId>
 			<artifactId>elasticsearch</artifactId>
-			<version>1.7.1</version>
+			<version>${elastic-search-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
-			<version>1.1.1</version>
+			<version>${json-simple-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.2.3</version>
+			<version>${jackson-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>2.2.3</version>
+			<version>${jackson-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-joda</artifactId>
-			<version>2.3.1</version>
+			<version>${jackson-datatype-joda-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
+			<version>${commons-io-version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${commons-beanutils-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons-lang-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.jboss.spec.javax.jms</groupId>
 			<artifactId>jboss-jms-api_2.0_spec</artifactId>
-			<version>1.0.0.Final</version>
+			<version>${javax-jms-version}</version>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.jayway.jsonpath</groupId>
 			<artifactId>json-path</artifactId>
-			<version>1.2.0</version>
+			<version>${jayway-version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.jayway.jsonpath</groupId>
 			<artifactId>json-path-assert</artifactId>
-			<version>1.2.0</version>
+			<version>${jayway-version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.jayway.restassured</groupId>
 			<artifactId>rest-assured</artifactId>
-			<version>2.4.0</version>
+			<version>${jayway-restassured-version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>${junit-version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
-			<version>1.10.19</version>
+			<version>${mockito-all-version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.skyscreamer</groupId>
 			<artifactId>jsonassert</artifactId>
-			<version>1.2.0</version>
+			<version>${jsonassert-version}</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>1.8.3</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.5</version>
 		</dependency>
 	</dependencies>
 
