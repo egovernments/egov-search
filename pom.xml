@@ -57,10 +57,10 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring-version>4.2.5.RELEASE</spring-version>
-		<elastic-search-version>1.7.1</elastic-search-version>
+		<elastic-search-version>2.1.0</elastic-search-version>
 		<json-simple-version>1.1.1</json-simple-version>
-		<jackson-version>2.2.3</jackson-version>
-		<jackson-datatype-joda-version>2.3.1</jackson-datatype-joda-version>
+		<jackson-version>2.7.2</jackson-version>
+		<jackson-datatype-joda-version>2.7.2</jackson-datatype-joda-version>
 		<commons-io-version>2.4</commons-io-version>
 		<javax-jms-version>1.0.0.Final</javax-jms-version>
 		<commons-beanutils-version>1.8.3</commons-beanutils-version>

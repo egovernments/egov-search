@@ -1,7 +1,7 @@
 package org.egov.search.domain;
 
-import org.elasticsearch.index.query.FilterBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
 public class TermsStringFilter extends Filter {
 
@@ -17,7 +17,7 @@ public class TermsStringFilter extends Filter {
     }
 
     @Override
-    public FilterBuilder filterBuilder() {
-        return FilterBuilders.termsFilter(this.field(), this.values());
+    public QueryBuilder queryBuilder() {
+        return QueryBuilders.termsQuery(this.field(), this.values());
     }
 }

@@ -9,12 +9,13 @@ import org.egov.search.util.Classpath;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
+import org.elasticsearch.action.index.IndexAction;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchAction;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ class ElasticSearchClient {
             createIndex(index);
         }
 
-        IndexRequestBuilder indexRequestBuilder = new IndexRequestBuilder(client)
+        IndexRequestBuilder indexRequestBuilder = new IndexRequestBuilder(client, IndexAction.INSTANCE)
                 .setIndex(index)
                 .setType(type)
                 .setSource(json)
@@ -49,7 +50,7 @@ class ElasticSearchClient {
     }
 
 	public String search(List<String> indices, List<String> types,QueryBuilder queryBuilder, Sort sort, Page page) {
-		SearchRequestBuilder requestBuilder = new SearchRequestBuilder(client)
+		SearchRequestBuilder requestBuilder = new SearchRequestBuilder(client, SearchAction.INSTANCE)
 				.setIndices(toArray(indices))
 				.setTypes(toArray(types))
 				.setQuery(queryBuilder)
@@ -81,11 +82,11 @@ class ElasticSearchClient {
     }
 
     private CreateIndexResponse createIndex(String indexName) {
-        ImmutableSettings.Builder settingsBuilder = ImmutableSettings.settingsBuilder();
-        Settings settings = settingsBuilder
+        Settings settings = Settings.settingsBuilder()
                 .put("index.mapper.dynamic", true)
                 .put("index.number_of_shards", searchConfig.searchShardsFor(indexName))
                 .put("index.number_of_replicas", searchConfig.searchReplicasFor(indexName))
+                .put("index.max_result_window", 999999999)
                 .build();
 
         String dynamicTemplates = Classpath.readAsString("config/search/dynamic-templates.json");

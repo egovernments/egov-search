@@ -1,7 +1,7 @@
 package org.egov.search.domain;
 
-import org.elasticsearch.index.query.FilterBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
 public class RangeFilter extends Filter {
     private String from;
@@ -22,7 +22,7 @@ public class RangeFilter extends Filter {
     }
 
     @Override
-    public FilterBuilder filterBuilder() {
-        return FilterBuilders.rangeFilter(this.field()).from(this.from()).to(this.to());
+    public QueryBuilder queryBuilder() {
+        return QueryBuilders.rangeQuery(this.field()).from(this.from()).to(this.to());
     }
 }

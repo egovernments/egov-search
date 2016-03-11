@@ -7,8 +7,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.elasticsearch.index.query.FilterBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
 public abstract class Filter {
 	protected String fieldName;
@@ -21,8 +21,8 @@ public abstract class Filter {
 		return fieldName;
 	}
 
-	public FilterBuilder filterBuilder() {
-		return FilterBuilders.matchAllFilter();
+	public QueryBuilder queryBuilder() {
+		return QueryBuilders.matchAllQuery();
 	}
 
 	@Override

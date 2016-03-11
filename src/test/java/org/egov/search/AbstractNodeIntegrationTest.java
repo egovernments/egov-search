@@ -1,6 +1,10 @@
 package org.egov.search;
 
-import com.jayway.restassured.RestAssured;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.util.Arrays;
+
+import org.elasticsearch.action.admin.cluster.health.ClusterHealthAction;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthRequest;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthRequestBuilder;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
@@ -16,7 +20,6 @@ import org.elasticsearch.client.ClusterAdminClient;
 import org.elasticsearch.common.logging.ESLogger;
 import org.elasticsearch.common.logging.Loggers;
 import org.elasticsearch.common.network.NetworkUtils;
-import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.node.Node;
@@ -24,8 +27,7 @@ import org.elasticsearch.node.NodeBuilder;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
-import java.io.IOException;
-import java.util.Arrays;
+import com.jayway.restassured.RestAssured;
 
 public abstract class AbstractNodeIntegrationTest {
     private static final TimeValue TIMEOUT = TimeValue.timeValueSeconds(5L);
@@ -34,22 +36,23 @@ public abstract class AbstractNodeIntegrationTest {
     protected static int PORT = 9209;
 
     @BeforeClass
-    public static void beforeAllTests() throws IOException {
-        ImmutableSettings.Builder settingsBuilder = ImmutableSettings.settingsBuilder()
+    public static void beforeAllTests() throws IOException, InterruptedException  {
+        Settings settings = Settings.settingsBuilder()
                 .put("path.data", "target/es-data")
                 .put("http.port", PORT)
-                .put("cluster.name", "test-cluster-" + NetworkUtils.getLocalAddress());
+                .put("path.home", System.getProperty("user.home"))
+                .put("cluster.name", "test-cluster-"+InetAddress.getLocalHost()).build();
 
-        node = NodeBuilder.nodeBuilder().local(true).settings(settingsBuilder).node();
-
-        RestAssured.baseURI = "http://localhost/";
+        node = NodeBuilder.nodeBuilder().local(true).settings(settings).node();
+       RestAssured.baseURI = "http://localhost/";
         RestAssured.port = PORT;
     }
 
     @AfterClass
-    public static void afterAllTests() {
-        String[] indices = node.client().admin().cluster().prepareState().execute().actionGet().getState().getMetaData().concreteAllIndices();
-        DeleteIndexResponse deleteIndexResponse = node.client().admin().indices().prepareDelete(indices).execute().actionGet();
+    public static void afterAllTests() throws InterruptedException {
+        Client client = node.client();
+        String[] indices = client.admin().cluster().prepareState().execute().actionGet().getState().getMetaData().concreteAllIndices();
+        DeleteIndexResponse deleteIndexResponse = client.admin().indices().prepareDelete(indices).execute().actionGet();
         ES_LOGGER.info("Delete indices [{}] acknowledged [{}]", Arrays.toString(indices), deleteIndexResponse.isAcknowledged());
         node.close();
     }
@@ -61,8 +64,8 @@ public abstract class AbstractNodeIntegrationTest {
             ES_LOGGER.info("Delete index [{}] acknowledged [{}]", indexName, builder.isAcknowledged());
         }
 
-        ImmutableSettings.Builder settingsBuilder = ImmutableSettings.settingsBuilder();
-        Settings settings = settingsBuilder.put("index.mapper.dynamic", true)
+        Settings settings = Settings.settingsBuilder()
+                .put("index.mapper.dynamic", true)
                 .put("index.number_of_shards", 1)
                 .put("index.number_of_replicas", 0)
                 .build();
@@ -96,7 +99,7 @@ public abstract class AbstractNodeIntegrationTest {
 
     private ClusterHealthResponse waitForGreenClusterState(String index) {
         ClusterAdminClient clusterAdminClient = node.client().admin().cluster();
-        ClusterHealthRequest request = (new ClusterHealthRequestBuilder(clusterAdminClient))
+        ClusterHealthRequest request = (new ClusterHealthRequestBuilder(clusterAdminClient, ClusterHealthAction.INSTANCE))
                 .setIndices(index).setWaitForGreenStatus().request();
         return clusterAdminClient.health(request).actionGet();
     }

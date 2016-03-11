@@ -1,10 +1,12 @@
 package org.egov.search.config;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-
-import java.util.Properties;
 
 @Component
 public class SearchConfig {
@@ -16,8 +18,8 @@ public class SearchConfig {
         this.properties = properties;
     }
 
-    public String[] searchHosts() {
-        return properties.getProperty("search.hosts").split(",");
+    public List<String> searchHosts() {
+        return Arrays.asList(properties.getProperty("search.hosts").split(","));
     }
 
     public int searchPort() {

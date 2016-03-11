@@ -1,7 +1,7 @@
 package org.egov.search.domain;
 
 
-import org.elasticsearch.index.query.FilterBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 
 public class NoOpFilter extends Filter {
 
@@ -10,7 +10,7 @@ public class NoOpFilter extends Filter {
     }
 
     @Override
-    public FilterBuilder filterBuilder() {
+    public QueryBuilder queryBuilder() {
         return null;
     }
 
