@@ -4,7 +4,7 @@ public class Page {
 
     public static final Page NULL = new Page();
     private int pageNumber = 1;
-    private int size = 999999999;
+    private int size = 10000;
 
     private Page() {
     }

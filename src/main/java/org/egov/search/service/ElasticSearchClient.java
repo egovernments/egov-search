@@ -86,7 +86,6 @@ class ElasticSearchClient {
                 .put("index.mapper.dynamic", true)
                 .put("index.number_of_shards", searchConfig.searchShardsFor(indexName))
                 .put("index.number_of_replicas", searchConfig.searchReplicasFor(indexName))
-                .put("index.max_result_window", 999999999)
                 .build();
 
         String dynamicTemplates = Classpath.readAsString("config/search/dynamic-templates.json");

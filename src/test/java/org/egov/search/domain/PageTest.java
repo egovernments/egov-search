@@ -12,7 +12,7 @@ public class PageTest {
         Page nullPage = Page.NULL;
 
         assertThat(nullPage.offset(), is(0));
-        assertThat(nullPage.size(), is(999999999));
+        assertThat(nullPage.size(), is(10000));
     }
 
     @Test
