@@ -5,7 +5,7 @@
 	<name>e-governments search</name>
 	<groupId>org.egov.search</groupId>
 	<artifactId>egov-search</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3-SNAPSHOT</version>
 
 	<description>eGov Elastic Search and Java Domain Model Integration Framework</description>
 
@@ -20,7 +20,7 @@
 		<connection>scm:git:git://github.com/egovernments/eGov-Search.git</connection>
 		<developerConnection>scm:git:git@github.com:egovernments/eGov-Search.git</developerConnection>
 		<url>https://github.com/egovernments/eGov-Search</url>
-	  <tag>1.0.2</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<organization>
