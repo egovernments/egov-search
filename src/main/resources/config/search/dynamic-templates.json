@@ -22,7 +22,6 @@
         "path_match": "*email",
         "mapping": {
           "index": "not_analyzed"
-          
         }
       }
     },
@@ -31,7 +30,6 @@
         "path_match": "*email",
         "mapping": {
           "index": "not_analyzed"
-          
         }
       }
     }

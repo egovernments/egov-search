@@ -1,9 +1,46 @@
+/*
+ * eGov suite of products aim to improve the internal efficiency,transparency,
+ *    accountability and the service delivery of the government  organizations.
+ *
+ *     Copyright (C) <2015>  eGovernments Foundation
+ *
+ *     The updated version of eGov suite of products as by eGovernments Foundation
+ *     is available at http://www.egovernments.org
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program. If not, see http://www.gnu.org/licenses/ or
+ *     http://www.gnu.org/licenses/gpl.html .
+ *
+ *     In addition to the terms of the GPL license to be adhered to in using this
+ *     program, the following additional terms are to be complied with:
+ *
+ *         1) All versions of this program, verbatim or modified must carry this
+ *            Legal Notice.
+ *
+ *         2) Any misrepresentation of the origin of the material is prohibited. It
+ *            is required that all modified versions of this material be marked in
+ *            reasonable ways as different from the original version.
+ *
+ *         3) This license does not grant any rights to any user of the program
+ *            with regards to rights under trademark law for use of the trade names
+ *            or trademarks of eGovernments Foundation.
+ *
+ *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
+ */
+
 package org.egov.search;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.util.Arrays;
-
+import com.jayway.restassured.RestAssured;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthAction;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthRequest;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthRequestBuilder;
@@ -19,7 +56,6 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.client.ClusterAdminClient;
 import org.elasticsearch.common.logging.ESLogger;
 import org.elasticsearch.common.logging.Loggers;
-import org.elasticsearch.common.network.NetworkUtils;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.node.Node;
@@ -27,7 +63,9 @@ import org.elasticsearch.node.NodeBuilder;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
-import com.jayway.restassured.RestAssured;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.util.Arrays;
 
 public abstract class AbstractNodeIntegrationTest {
     private static final TimeValue TIMEOUT = TimeValue.timeValueSeconds(5L);
@@ -36,15 +74,15 @@ public abstract class AbstractNodeIntegrationTest {
     protected static int PORT = 9209;
 
     @BeforeClass
-    public static void beforeAllTests() throws IOException, InterruptedException  {
+    public static void beforeAllTests() throws IOException, InterruptedException {
         Settings settings = Settings.settingsBuilder()
                 .put("path.data", "target/es-data")
                 .put("http.port", PORT)
                 .put("path.home", System.getProperty("user.home"))
-                .put("cluster.name", "test-cluster-"+InetAddress.getLocalHost()).build();
+                .put("cluster.name", "test-cluster-" + InetAddress.getLocalHost()).build();
 
         node = NodeBuilder.nodeBuilder().local(true).settings(settings).node();
-       RestAssured.baseURI = "http://localhost/";
+        RestAssured.baseURI = "http://localhost/";
         RestAssured.port = PORT;
     }
 
