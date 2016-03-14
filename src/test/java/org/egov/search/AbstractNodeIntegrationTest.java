@@ -64,7 +64,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.Arrays;
 
 public abstract class AbstractNodeIntegrationTest {
@@ -78,8 +77,8 @@ public abstract class AbstractNodeIntegrationTest {
         Settings settings = Settings.settingsBuilder()
                 .put("path.data", "target/es-data")
                 .put("http.port", PORT)
-                .put("path.home", System.getProperty("user.home"))
-                .put("cluster.name", "test-cluster-" + InetAddress.getLocalHost()).build();
+                .put("path.home", "target/es-data")
+                .put("cluster.name", "test-cluster").build();
 
         node = NodeBuilder.nodeBuilder().local(true).settings(settings).node();
         RestAssured.baseURI = "http://localhost/";
