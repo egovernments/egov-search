@@ -98,7 +98,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-version>4.2.5.RELEASE</spring-version>
-        <elastic-search-version>2.1.0</elastic-search-version>
+        <elastic-search-version>2.1.2</elastic-search-version>
         <json-simple-version>1.1.1</json-simple-version>
         <jackson-version>2.7.2</jackson-version>
         <jackson-datatype-joda-version>2.7.2</jackson-datatype-joda-version>
