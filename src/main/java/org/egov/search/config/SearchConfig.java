@@ -74,7 +74,7 @@ public class SearchConfig {
     public int searchShardsFor(String indexName) {
         String noOfShards = properties.getProperty(String.format("search.%s.shards", indexName));
         if (StringUtils.isBlank(noOfShards))
-            throw new RuntimeException(String.format("No of shards are not defined for %s, verify 'search.%s.shards' entry", indexName));
+            throw new RuntimeException(String.format("No of shards are not defined for %s, verify 'search.%s.shards' entry", indexName, indexName));
         return Integer.valueOf(noOfShards);
     }
 
