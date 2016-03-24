@@ -40,13 +40,14 @@
 
 package org.egov.search.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 @Component
 public class SearchConfig {
@@ -71,10 +72,16 @@ public class SearchConfig {
     }
 
     public int searchShardsFor(String indexName) {
-        return Integer.parseInt(properties.getProperty(String.format("search.%s.shards", indexName)));
+        String noOfShards = properties.getProperty(String.format("search.%s.shards", indexName));
+        if (StringUtils.isBlank(noOfShards))
+            throw new RuntimeException(String.format("No of shards are not defined for %s, verify 'search.%s.shards' entry", indexName));
+        return Integer.valueOf(noOfShards);
     }
 
     public int searchReplicasFor(String indexName) {
-        return Integer.parseInt(properties.getProperty(String.format("search.%s.replicas", indexName)));
+        String noOfReplicas = properties.getProperty(String.format("search.%s.replicas", indexName));
+        if (StringUtils.isBlank(noOfReplicas))
+            throw new RuntimeException(String.format("No of replicas are not defined for %s, verify 'search.%s.replicas' entry ", indexName));
+        return Integer.valueOf(noOfReplicas);
     }
 }

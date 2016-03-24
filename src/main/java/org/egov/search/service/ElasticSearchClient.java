@@ -40,6 +40,8 @@
 
 package org.egov.search.service;
 
+import java.util.List;
+
 import org.egov.search.config.SearchConfig;
 import org.egov.search.domain.Page;
 import org.egov.search.domain.Sort;
@@ -56,15 +58,15 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 class ElasticSearchClient {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(ElasticSearchClient.class);
     private Client client;
     private SearchConfig searchConfig;
 
@@ -122,6 +124,7 @@ class ElasticSearchClient {
     }
 
     private CreateIndexResponse createIndex(String indexName) {
+        LOGGER.info("Creating Index {} ", indexName);
         Settings settings = Settings.settingsBuilder()
                 .put("index.mapper.dynamic", true)
                 .put("index.number_of_shards", searchConfig.searchShardsFor(indexName))
