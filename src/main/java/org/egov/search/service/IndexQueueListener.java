@@ -40,6 +40,8 @@
 package org.egov.search.service;
 
 import org.egov.search.domain.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.listener.SessionAwareMessageListener;
 import org.springframework.stereotype.Component;
@@ -53,7 +55,7 @@ import javax.jms.TextMessage;
 @Component
 @Transactional
 public class IndexQueueListener implements SessionAwareMessageListener<Message> {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(IndexQueueListener.class);
     private final ElasticSearchClient esIndexClient;
 
     @Autowired
@@ -68,6 +70,7 @@ public class IndexQueueListener implements SessionAwareMessageListener<Message> 
             final Document doc = Document.fromJson(documentMessage);
             esIndexClient.index(doc.getIndex(), doc.getType(), doc.getCorrelationId(), doc.getResource().toJSONString());
         } catch (final Exception e) {
+            LOGGER.error("Error while creating search index", e);
             session.rollback();
             throw new JMSException(e.getMessage());
         }
