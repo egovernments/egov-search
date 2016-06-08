@@ -1,273 +1,330 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<!--
+  ~ eGov suite of products aim to improve the internal efficiency,transparency,
+  ~    accountability and the service delivery of the government  organizations.
+  ~
+  ~     Copyright (C) <2015>  eGovernments Foundation
+  ~
+  ~     The updated version of eGov suite of products as by eGovernments Foundation
+  ~     is available at http://www.egovernments.org
+  ~
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program. If not, see http://www.gnu.org/licenses/ or
+  ~     http://www.gnu.org/licenses/gpl.html .
+  ~
+  ~     In addition to the terms of the GPL license to be adhered to in using this
+  ~     program, the following additional terms are to be complied with:
+  ~
+  ~         1) All versions of this program, verbatim or modified must carry this
+  ~            Legal Notice.
+  ~
+  ~         2) Any misrepresentation of the origin of the material is prohibited. It
+  ~            is required that all modified versions of this material be marked in
+  ~            reasonable ways as different from the original version.
+  ~
+  ~         3) This license does not grant any rights to any user of the program
+  ~            with regards to rights under trademark law for use of the trade names
+  ~            or trademarks of eGovernments Foundation.
+  ~
+  ~   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
+  -->
 
-	<name>e-governments search</name>
-	<groupId>org.egov.search</groupId>
-	<artifactId>egov-search</artifactId>
-	<version>2.0.0-SNAPSHOT</version>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<description>eGov Elastic Search and Java Domain Model Integration Framework</description>
+    <name>e-governments search</name>
+    <groupId>org.egov.search</groupId>
+    <artifactId>egov-search</artifactId>
+    <version>2.0.0-SNAPSHOT</version>
 
-	<inceptionYear>2015</inceptionYear>
+    <description>eGov Elastic Search and Java Domain Model Integration Framework</description>
 
-	<issueManagement>
-		<system>Jira</system>
-		<url>http://issues.egovernments.org/browse/PHOENIX/</url>
-	</issueManagement>
+    <inceptionYear>2015</inceptionYear>
 
-	<scm>
-		<connection>scm:git:git://github.com/egovernments/eGov-Search.git</connection>
-		<developerConnection>scm:git:git@github.com:egovernments/eGov-Search.git</developerConnection>
-		<url>https://github.com/egovernments/eGov-Search</url>
-	  <tag>HEAD</tag>
-  </scm>
+    <issueManagement>
+        <system>Jira</system>
+        <url>http://issues.egovernments.org/browse/PHOENIX/</url>
+    </issueManagement>
 
-	<organization>
-		<name>eGovernments Foundation</name>
-		<url>http://www.egovernments.org</url>
-	</organization>
+    <scm>
+        <connection>scm:git:git://github.com/egovernments/eGov-Search.git</connection>
+        <developerConnection>scm:git:git@github.com:egovernments/eGov-Search.git</developerConnection>
+        <url>https://github.com/egovernments/eGov-Search</url>
+        <tag>HEAD</tag>
+    </scm>
 
-	<licenses>
-		<license>
-			<name>GPL 3.0</name>
-			<url>http://www.gnu.org/licenses/gpl-3.0.en.html</url>
-			<comments>See also: https://raw.githubusercontent.com/egovernments/eGov/master/LICENSE</comments>
-		</license>
-	</licenses>
+    <organization>
+        <name>eGovernments Foundation</name>
+        <url>http://www.egovernments.org</url>
+    </organization>
 
-	<ciManagement>
-		<system>Jenkins</system>
-		<url>http://ci.egovernments.org/job/eGov-Search-Master/</url>
-	</ciManagement>
+    <licenses>
+        <license>
+            <name>GPL 3.0</name>
+            <url>http://www.gnu.org/licenses/gpl-3.0.en.html</url>
+            <comments>See also: https://raw.githubusercontent.com/egovernments/eGov/master/LICENSE</comments>
+        </license>
+    </licenses>
 
-	<distributionManagement>
-		<repository>
-			<id>repo.egovernments.org</id>
-			<name>eGov Release Repository</name>
-			<url>http://repo.egovernments.org/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>repo.egovernments.org</id>
-			<name>eGov Snapshot Repository</name>
-			<url>http://repo.egovernments.org/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>http://ci.egovernments.org/job/eGov-Search-Master/</url>
+    </ciManagement>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring-version>4.2.5.RELEASE</spring-version>
-		<elastic-search-version>1.7.1</elastic-search-version>
-		<json-simple-version>1.1.1</json-simple-version>
-		<jackson-version>2.2.3</jackson-version>
-		<jackson-datatype-joda-version>2.3.1</jackson-datatype-joda-version>
-		<commons-io-version>2.4</commons-io-version>
-		<javax-jms-version>1.0.0.Final</javax-jms-version>
-		<commons-beanutils-version>1.8.3</commons-beanutils-version>
-		<commons-lang-version>2.5</commons-lang-version>
-		<jayway-version>1.2.0</jayway-version>
-		<jayway-restassured-version>2.4.0</jayway-restassured-version>
-		<junit-version>4.11</junit-version>
-		<mockito-all-version>1.10.19</mockito-all-version>
-		<jsonassert-version>1.2.0</jsonassert-version>
-	</properties>
+    <distributionManagement>
+        <repository>
+            <id>repo.egovernments.org</id>
+            <name>eGov Release Repository</name>
+            <url>http://repo.egovernments.org/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>repo.egovernments.org</id>
+            <name>eGov Snapshot Repository</name>
+            <url>http://repo.egovernments.org/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>jacoco</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-version>4.2.5.RELEASE</spring-version>
+        <elastic-search-version>2.1.2</elastic-search-version>
+        <json-simple-version>1.1.1</json-simple-version>
+        <jackson-version>2.7.2</jackson-version>
+        <jackson-datatype-joda-version>2.7.2</jackson-datatype-joda-version>
+        <commons-io-version>2.4</commons-io-version>
+        <javax-jms-version>1.0.0.Final</javax-jms-version>
+        <commons-beanutils-version>1.8.3</commons-beanutils-version>
+        <commons-lang-version>2.5</commons-lang-version>
+        <jayway-version>1.2.0</jayway-version>
+        <jayway-restassured-version>2.4.0</jayway-restassured-version>
+        <junit-version>4.11</junit-version>
+        <mockito-all-version>1.10.19</mockito-all-version>
+        <jsonassert-version>1.2.0</jsonassert-version>
+        <slf4j-version>1.7.7</slf4j-version>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${spring-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>${spring-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-			<version>${spring-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jms</artifactId>
-			<version>${spring-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.elasticsearch</groupId>
-			<artifactId>elasticsearch</artifactId>
-			<version>${elastic-search-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode.json-simple</groupId>
-			<artifactId>json-simple</artifactId>
-			<version>${json-simple-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>${jackson-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>${jackson-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.datatype</groupId>
-			<artifactId>jackson-datatype-joda</artifactId>
-			<version>${jackson-datatype-joda-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>${commons-io-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>${commons-beanutils-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>${commons-lang-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.spec.javax.jms</groupId>
-			<artifactId>jboss-jms-api_2.0_spec</artifactId>
-			<version>${javax-jms-version}</version>
-			<scope>provided</scope>
-		</dependency>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jacoco</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>${elastic-search-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>${json-simple-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-joda</artifactId>
+            <version>${jackson-datatype-joda-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${commons-beanutils-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons-lang-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.jms</groupId>
+            <artifactId>jboss-jms-api_2.0_spec</artifactId>
+            <version>${javax-jms-version}</version>
+            <scope>provided</scope>
+        </dependency>
 		<dependency>
-			<groupId>com.jayway.jsonpath</groupId>
-			<artifactId>json-path</artifactId>
-			<version>${jayway-version}</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-nop</artifactId>
+			<version>${slf4j-version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.jayway.jsonpath</groupId>
-			<artifactId>json-path-assert</artifactId>
-			<version>${jayway-version}</version>
-			<scope>test</scope>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j-version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.jayway.restassured</groupId>
-			<artifactId>rest-assured</artifactId>
-			<version>${jayway-restassured-version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit-version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>${mockito-all-version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.skyscreamer</groupId>
-			<artifactId>jsonassert</artifactId>
-			<version>${jsonassert-version}</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>${jayway-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path-assert</artifactId>
+            <version>${jayway-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${jayway-restassured-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito-all-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.skyscreamer</groupId>
+            <artifactId>jsonassert</artifactId>
+            <version>${jsonassert-version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>net.orfjackal.retrolambda</groupId>
-					<artifactId>retrolambda-maven-plugin</artifactId>
-					<version>1.8.1</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>process-main</goal>
-								<goal>process-test</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>net.orfjackal.retrolambda</groupId>
+                    <artifactId>retrolambda-maven-plugin</artifactId>
+                    <version>1.8.1</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>process-main</goal>
+                                <goal>process-test</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
 
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.9</version>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-				<version>2.5</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.2</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.5.201505241946</version>
-				<executions>
-					<execution>
-						<id>default-prepare-agent</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>default-report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.2</version>
-				<configuration>
-					<goals>deploy</goals>
-					<arguments>-DskipTests</arguments>
-					<pushChanges>true</pushChanges>
-					<localCheckout>true</localCheckout>
-					<preparationGoals>clean install</preparationGoals>
-					<autoVersionSubmodules>true</autoVersionSubmodules>
-					<allowTimestampedSnapshots>true</allowTimestampedSnapshots>
-					<tagNameFormat>@{project.version}</tagNameFormat>
-					<scmCommentPrefix>Releasing${line.separator}</scmCommentPrefix>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.9</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.5.201505241946</version>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.2</version>
+                <configuration>
+                    <goals>deploy</goals>
+                    <arguments>-DskipTests</arguments>
+                    <pushChanges>true</pushChanges>
+                    <localCheckout>true</localCheckout>
+                    <preparationGoals>clean install</preparationGoals>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <allowTimestampedSnapshots>true</allowTimestampedSnapshots>
+                    <tagNameFormat>@{project.version}</tagNameFormat>
+                    <scmCommentPrefix>Releasing${line.separator}</scmCommentPrefix>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
