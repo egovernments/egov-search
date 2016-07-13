@@ -1,37 +1,56 @@
 {
-  "dynamic_templates": [
-    {
-      "clauses": {
-        "path_match": "clauses.*",
-        "mapping": {
-          "index": "not_analyzed"
-        }
+   "dynamic_templates": [
+      {
+         "raw": {
+            "match": "*",
+            "match_mapping_type": "string",
+            "mapping": {
+               "type": "string",
+               "index": "analyzed",
+               "omit_norms": true,
+               "fields": {
+                  "raw": {
+                     "type": "string",
+                     "index": "not_analyzed",
+                     "doc_values": true,
+                     "ignore_above": 256
+                  }
+               }
+            }
+         }
+      },
+      {
+         "clauses": {
+            "path_match": "clauses.*",
+            "mapping": {
+               "index": "not_analyzed"
+            }
+         }
+      },
+      {
+         "simple_dates": {
+            "path_match": "*_date",
+            "mapping": {
+               "type": "date",
+               "format": "dd-MMM-YY"
+            }
+         }
+      },
+      {
+         "searchable": {
+            "path_match": "*email",
+            "mapping": {
+               "index": "not_analyzed"
+            }
+         }
+      },
+      {
+         "common": {
+            "path_match": "*email",
+            "mapping": {
+               "index": "not_analyzed"
+            }
+         }
       }
-    },
-    {
-      "simple_dates": {
-        "path_match": "*_date",
-        "mapping": {
-          "type": "date",
-          "format": "dd-MMM-YY"
-        }
-      }
-    },
-    {
-      "searchable": {
-        "path_match": "*email",
-        "mapping": {
-          "index": "not_analyzed"
-        }
-      }
-    },
-    {
-      "common": {
-        "path_match": "*email",
-        "mapping": {
-          "index": "not_analyzed"
-        }
-      }
-    }
-  ]
+   ]
 }
