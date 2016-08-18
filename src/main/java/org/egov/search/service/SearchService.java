@@ -41,6 +41,7 @@
 package org.egov.search.service;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.lucene.queryparser.flexible.standard.QueryParserUtil;
 import org.egov.search.domain.Filter;
 import org.egov.search.domain.Filters;
 import org.egov.search.domain.Page;
@@ -68,14 +69,15 @@ public class SearchService {
 
     public SearchResult search(List<String> indices, List<String> types, String searchText, Filters filters, Sort sort, Page page) {
         QueryBuilder filterBuilder = constructBoolFilter(filters);
-
+         
         QueryBuilder queryBuilder = QueryBuilders.matchAllQuery();
         if (StringUtils.isNotEmpty(searchText)) {
-            queryBuilder = QueryBuilders.queryStringQuery(searchText)
+            queryBuilder = QueryBuilders.queryStringQuery(QueryParserUtil.escape(searchText))
                     .lenient(true)
                     .field("searchable.*")
                     .field("common.*")
                     .field("clauses.*");
+            
         }
 
         QueryBuilder rootQueryBuilder;
