@@ -41,12 +41,12 @@
 package org.egov.search.service;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.lucene.queryparser.flexible.standard.QueryParserUtil;
 import org.egov.search.domain.Filter;
 import org.egov.search.domain.Filters;
 import org.egov.search.domain.Page;
 import org.egov.search.domain.SearchResult;
 import org.egov.search.domain.Sort;
+import org.egov.search.util.SearchUtil;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -72,7 +72,7 @@ public class SearchService {
          
         QueryBuilder queryBuilder = QueryBuilders.matchAllQuery();
         if (StringUtils.isNotEmpty(searchText)) {
-            queryBuilder = QueryBuilders.queryStringQuery(QueryParserUtil.escape(searchText))
+            queryBuilder = QueryBuilders.queryStringQuery(SearchUtil.escape(searchText))
                     .lenient(true)
                     .field("searchable.*")
                     .field("common.*")

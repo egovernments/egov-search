@@ -44,7 +44,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.lucene.queryparser.flexible.standard.QueryParserUtil;
+import org.egov.search.util.SearchUtil;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
@@ -129,7 +129,7 @@ public abstract class Filter {
     
     public static  String escape(String val)
     {
-    	return QueryParserUtil.escape(val);
+    	return SearchUtil.escape(val);
     }
 
 }
