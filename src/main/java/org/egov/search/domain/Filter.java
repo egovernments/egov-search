@@ -40,6 +40,9 @@
 
 package org.egov.search.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -48,58 +51,48 @@ import org.egov.search.util.SearchUtil;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class Filter {
     protected String fieldName;
 
-    protected Filter(String fieldName) {
+    protected Filter(final String fieldName) {
         this.fieldName = fieldName;
     }
 
-    public static Filter queryStringFilter(String fieldName, String value) {
-        if (StringUtils.isEmpty(value) || StringUtils.isEmpty(fieldName)) {
+    public static Filter queryStringFilter(final String fieldName, final String value) {
+        if (StringUtils.isEmpty(value) || StringUtils.isEmpty(fieldName))
             return new NoOpFilter();
-        }
 
         return new QueryStringFilter(fieldName, escape(value));
     }
 
-    public static Filter rangeFilter(String fieldName, String from, String to) {
-        if ((StringUtils.isEmpty(from) && StringUtils.isEmpty(to))
-                || StringUtils.isEmpty(fieldName)) {
+    public static Filter rangeFilter(final String fieldName, final String from, final String to) {
+        if (StringUtils.isEmpty(from) && StringUtils.isEmpty(to)
+                || StringUtils.isEmpty(fieldName))
             return new NoOpFilter();
-        }
         return new RangeFilter(fieldName, from, to);
     }
 
-    public static Filter rangeFilterFrom(String fieldName, String from) {
-        if (StringUtils.isEmpty(fieldName) || StringUtils.isEmpty(from)) {
+    public static Filter rangeFilterFrom(final String fieldName, final String from) {
+        if (StringUtils.isEmpty(fieldName) || StringUtils.isEmpty(from))
             return new NoOpFilter();
-        }
         return rangeFilter(fieldName, from, null);
     }
 
-    public static Filter rangeFilterTo(String fieldName, String to) {
-        if (StringUtils.isEmpty(fieldName) || StringUtils.isEmpty(to)) {
+    public static Filter rangeFilterTo(final String fieldName, final String to) {
+        if (StringUtils.isEmpty(fieldName) || StringUtils.isEmpty(to))
             return new NoOpFilter();
-        }
         return rangeFilter(fieldName, null, to);
     }
 
-    public static Filter termsStringFilter(String fieldName, String... values) {
-        List<String> valuesList = new ArrayList<String>(0);
+    public static Filter termsStringFilter(final String fieldName, final String... values) {
+        final List<String> valuesList = new ArrayList<String>(0);
 
-        for (String value : values) {
-            if (value != null) {
+        for (final String value : values)
+            if (value != null)
                 valuesList.add(escape(value));
-            }
-        }
 
-        if (StringUtils.isEmpty(fieldName) || valuesList.size() == 0) {
+        if (StringUtils.isEmpty(fieldName) || valuesList.size() == 0)
             return new NoOpFilter();
-        }
 
         return new TermsStringFilter(fieldName, valuesList.stream().toArray(String[]::new));
     }
@@ -118,7 +111,7 @@ public abstract class Filter {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
     }
 
@@ -126,10 +119,10 @@ public abstract class Filter {
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
-    
-    public static  String escape(String val)
+
+    public static String escape(final String val)
     {
-    	return SearchUtil.escape(val);
+        return SearchUtil.escape(val);
     }
 
 }

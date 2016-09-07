@@ -40,6 +40,10 @@
 
 package org.egov.search.service;
 
+import static java.util.stream.Collectors.toList;
+
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.egov.search.domain.Filter;
 import org.egov.search.domain.Filters;
@@ -53,50 +57,44 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
-
 @Service
 public class SearchService {
 
-    private ElasticSearchClient elasticSearchClient;
+    private final ElasticSearchClient elasticSearchClient;
 
     @Autowired
-    public SearchService(ElasticSearchClient elasticSearchClient) {
+    public SearchService(final ElasticSearchClient elasticSearchClient) {
         this.elasticSearchClient = elasticSearchClient;
     }
 
-    public SearchResult search(List<String> indices, List<String> types, String searchText, Filters filters, Sort sort, Page page) {
-        QueryBuilder filterBuilder = constructBoolFilter(filters);
-         
+    public SearchResult search(final List<String> indices, final List<String> types, final String searchText,
+            final Filters filters, final Sort sort, final Page page) {
+        final QueryBuilder filterBuilder = constructBoolFilter(filters);
+
         QueryBuilder queryBuilder = QueryBuilders.matchAllQuery();
-        if (StringUtils.isNotEmpty(searchText)) {
+        if (StringUtils.isNotEmpty(searchText))
             queryBuilder = QueryBuilders.queryStringQuery(SearchUtil.escape(searchText))
                     .lenient(true)
                     .field("searchable.*")
                     .field("common.*")
                     .field("clauses.*");
-            
-        }
 
         QueryBuilder rootQueryBuilder;
-        if (filters.isNotEmpty()) {
+        if (filters.isNotEmpty())
             rootQueryBuilder = QueryBuilders.boolQuery().must(queryBuilder).filter(filterBuilder);
-        } else {
+        else
             rootQueryBuilder = queryBuilder;
-        }
 
-        String response = elasticSearchClient.search(indices, types, rootQueryBuilder, sort, page);
+        final String response = elasticSearchClient.search(indices, types, rootQueryBuilder, sort, page);
         return SearchResult.from(response);
     }
 
-    private BoolQueryBuilder constructBoolFilter(Filters filters) {
-        List<QueryBuilder> mustFilters = queryBuilders(filters.getAndFilters());
-        List<QueryBuilder> shouldFilters = queryBuilders(filters.getOrFilters());
-        List<QueryBuilder> notFilters = queryBuilders(filters.getNotInFilters());
+    private BoolQueryBuilder constructBoolFilter(final Filters filters) {
+        final List<QueryBuilder> mustFilters = queryBuilders(filters.getAndFilters());
+        final List<QueryBuilder> shouldFilters = queryBuilders(filters.getOrFilters());
+        final List<QueryBuilder> notFilters = queryBuilders(filters.getNotInFilters());
 
-        BoolQueryBuilder boolFilterBuilder = QueryBuilders.boolQuery();
+        final BoolQueryBuilder boolFilterBuilder = QueryBuilders.boolQuery();
         mustFilters.stream().forEach(boolFilterBuilder::must);
         shouldFilters.stream().forEach(boolFilterBuilder::should);
         notFilters.stream().forEach(boolFilterBuilder::mustNot);
@@ -104,7 +102,7 @@ public class SearchService {
         return boolFilterBuilder;
     }
 
-    private List<QueryBuilder> queryBuilders(List<Filter> filters) {
+    private List<QueryBuilder> queryBuilders(final List<Filter> filters) {
         return filters.stream()
                 .map(Filter::queryBuilder)
                 .collect(toList());
